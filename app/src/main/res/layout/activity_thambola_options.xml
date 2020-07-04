@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_thambola_options"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+
+    tools:context="com.example.krishnarao.thambola_game.ThambolaOptions"
+    android:clickable="true">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Thambola_Options"
+        android:id="@+id/textView3"
+        android:paddingBottom="6dp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tks_from"
+        android:id="@+id/textView4"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/chkCf"
+        android:layout_alignLeft="@+id/txtFrom"
+        android:layout_alignStart="@+id/txtFrom"
+        android:textSize="15dp" />
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_events"
+        android:id="@+id/textView5"
+        android:paddingBottom="30dp"
+        android:textStyle="bold"
+        android:layout_below="@id/textView3"
+
+        android:layout_alignParentLeft="true"
+        android:textSize="25sp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/jaldi_Five"
+        android:paddingBottom="6dp"
+        android:id="@+id/chkEf"
+        android:checked="false"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Corner_Four"
+        android:paddingBottom="6dp"
+        android:id="@+id/chkCf"
+        android:checked="false"
+        android:layout_below="@+id/chkEf" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/star_Five"
+        android:paddingBottom="6dp"
+        android:id="@+id/chkSf"
+        android:checked="false"
+        android:layout_below="@+id/chkCf"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/line_one"
+        android:paddingBottom="6dp"
+        android:id="@+id/chkL1"
+        android:checked="false"
+        android:layout_below="@+id/chkSf" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/line_two"
+        android:paddingBottom="6dp"
+        android:id="@+id/chkL2"
+        android:checked="false"
+        android:layout_below="@+id/chkL1" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/line_three"
+        android:paddingBottom="6dp"
+        android:id="@+id/chkL3"
+        android:checked="false"
+        android:layout_below="@+id/chkL2"
+        android:layout_alignLeft="@+id/chkL2"
+        android:layout_alignStart="@+id/chkL2" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/full_house"
+        android:paddingBottom="6dp"
+        android:id="@+id/chkFh"
+        android:checked="false"
+        android:layout_below="@+id/chkL3"
+        android:layout_alignLeft="@+id/chkEf"
+        android:layout_alignStart="@+id/chkEf" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sec_full_house"
+        android:paddingBottom="6dp"
+        android:id="@+id/chk2ndFh"
+        android:checked="false"
+        android:layout_below="@+id/chkFh"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/txtFrom"
+        android:maxLength="3"
+        android:width="60dp"
+        android:layout_below="@+id/chkCf"
+        android:layout_toLeftOf="@+id/txtTo"
+        android:layout_toStartOf="@+id/txtTo" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/txtTo"
+        android:width="60dp"
+        android:maxLength="3"
+        android:layout_alignTop="@+id/txtFrom"
+        android:layout_alignRight="@+id/textView5"
+        android:layout_alignEnd="@+id/textView5" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:id="@+id/rg_Options"
+        android:layout_below="@+id/chkL3"
+        android:layout_alignLeft="@+id/enter"
+        android:layout_alignStart="@+id/enter"
+        android:layout_above="@+id/button4">
+
+        <RadioButton
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="@string/kgk_tkts"
+            android:id="@+id/rdoKgk"
+            android:onClick="onRadioButtonClicked"
+            android:checked="false"
+            android:width="15dp" />
+        <RadioButton
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:text="Lotto Tickets"
+            android:id="@+id/rdoLotto" />
+
+        <RadioButton
+            android:layout_width="129dp"
+            android:layout_height="wrap_content"
+            android:text="@string/other_tkts"
+            android:onClick="onRadioButtonClicked"
+            android:id="@+id/rdoOthers"
+            android:checked="false"
+            android:focusable="false" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chose Type"
+        android:id="@+id/txtChose"
+        android:textSize="15dp"
+        android:layout_above="@+id/rg_Options"
+        android:layout_alignLeft="@+id/rg_Options"
+        android:layout_alignStart="@+id/rg_Options"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:onClick="onClickGotoWelcome"
+        android:clickable="false"
+        android:editable="false"
+        android:enabled="true"
+        android:layout_below="@+id/chk2ndFh"
+        android:layout_alignRight="@+id/chkFh"
+        android:layout_alignEnd="@+id/chkFh"
+        android:layout_marginTop="34dp"
+        android:id="@+id/btnHome" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Button_EnterName"
+        android:id="@+id/enter"
+
+        android:enabled="false"
+        android:layout_alignTop="@+id/btnHome"
+        android:layout_alignLeft="@+id/textView4"/>
+
+
+
+</RelativeLayout>

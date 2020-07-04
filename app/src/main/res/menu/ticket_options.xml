@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:title="K G K Tickets" android:id="@+id/_kgk"></item >
+<item android:id="@+id/_loto" android:title="Lotto Tickets"></item>
+</menu>

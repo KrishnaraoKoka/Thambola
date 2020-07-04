@@ -1,0 +1,1009 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/scrollView"
+    tools:context=".ThambolaTickets"
+    android:fillViewport="true">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/txt10"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.krishnarao.thambola_game.ThambolaTickets">
+
+
+    <TextView
+        android:id ="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Tickets of Thambola"
+        android:textSize="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"/>
+    <TextView
+        android:id="@+id/textView2"
+        android:text="@string/enter"
+        android:textSize="15dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <EditText
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:text=""
+        android:id="@+id/editText"
+        android:layout_toRightOf="@id/textView2"
+       android:layout_alignBottom="@id/textView2"
+        android:visibility="visible" />
+
+    <Button
+        android:text="Show 1st Ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button1"
+        android:onClick="showFirstTkt"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorWhite"
+        android:textSize="10sp" />
+    <GridLayout
+        android:visibility="gone"
+        android:id="@+id/Grid1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:columnCount="9"
+        android:rowCount="3">
+
+        <TextView
+            android:id="@+id/txtNo1"
+            android:text="0"
+            style="@style/txtViewStyle"
+            android:onClick="ontxtClick"/>
+        <TextView
+            android:id="@+id/txtNo2"
+            android:text="00"
+            style="@style/txtViewStyle"
+            android:onClick="ontxtClick"/>
+
+        <TextView
+            android:id="@+id/txtNo3"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo4"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo5"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo6"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo7"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo8"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo9"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo10"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo11"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo12"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo13"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo14"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo15"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo16"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo17"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo18"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo19"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo20"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo21"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo22"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo23"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo24"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo25"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo26"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo27"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+
+    </GridLayout>
+
+    <TextView
+        android:text="@string/enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Grid1"
+        android:layout_alignLeft="@id/textView2"
+        android:id="@+id/textView3"
+        android:visibility="gone" />
+
+    <EditText
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:text=""
+        android:id="@+id/editText2"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toRightOf="@id/text3"
+        android:layout_alignLeft="@id/editText"
+        android:visibility="gone" />
+
+    <Button
+        android:text="Show 2nd Ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:visibility="gone"
+        android:layout_below="@+id/Grid1"
+        android:layout_toRightOf="@id/editText2"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_alignBottom="@id/textView3"
+        android:layout_alignBaseline="@id/textView3"
+        android:background="@color/colorWhite"
+        android:onClick="showSecTicket"
+        android:textSize="10sp" />
+
+    <GridLayout
+        android:visibility="gone"
+        android:id="@+id/Grid2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:columnCount="9"
+        android:rowCount="3">
+
+        <TextView
+            android:id="@+id/txtNo28"
+            android:text="0"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo29"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo30"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo31"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo32"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo33"
+            android:text="00"
+            style="@style/txtViewStyle" />
+
+        <TextView
+            android:id="@+id/txtNo34"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo35"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo36"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo37"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo38"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo39"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo40"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo41"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo42"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo43"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo44"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo45"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo46"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo47"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo48"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo49"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo50"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo51"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo52"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo53"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo54"
+            android:text="00"
+            style="@style/txtViewStyle" />
+
+    </GridLayout>
+
+    <Button
+        android:visibility="gone"
+        android:text="Show 3rd Ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:layout_below="@+id/Grid2"
+        android:layout_alignRight="@+id/Grid2"
+        android:layout_alignEnd="@+id/Grid2"
+        android:layout_marginTop="10dp"
+        android:layout_alignBottom="@id/textView4"
+        android:layout_alignBaseline="@id/textView4"
+        android:textAllCaps="true"
+        android:textSize="10sp"
+        android:background="@color/colorWhite"
+        android:onClick="showThirdTicket" />
+
+    <TextView
+        android:visibility="gone"
+        android:text="@string/enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/Grid2"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:id="@+id/textView4" />
+
+    <GridLayout
+        android:visibility="gone"
+        android:id="@+id/Grid3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button3"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:columnCount="9"
+        android:rowCount="3">
+
+        <TextView
+            android:id="@+id/txtNo55"
+            android:text="0"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo56"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo57"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo58"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo59"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo60"
+            android:text="00"
+            style="@style/txtViewStyle" />
+
+        <TextView
+            android:id="@+id/txtNo61"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo62"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo63"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo64"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo65"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo66"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo67"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo68"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo69"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo70"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo71"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo72"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo73"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo74"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo75"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo76"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo77"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo78"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo79"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo80"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo81"
+            android:text="00"
+            style="@style/txtViewStyle" />
+    </GridLayout>
+    <Button
+        android:visibility="gone"
+        android:text="Show 4th Ticket"
+        android:textSize="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button4"
+        android:layout_below="@+id/Grid3"
+        android:layout_alignRight="@+id/Grid3"
+        android:layout_alignEnd="@+id/Grid3"
+        android:layout_marginTop="10dp"
+        android:layout_alignBottom="@id/textView5"
+        android:layout_alignBaseline="@id/textView5"
+        android:background="@color/colorWhite"
+        android:textAllCaps="true"
+        android:onClick="showFourthTicket"/>
+
+    <TextView
+        android:visibility="gone"
+        android:text="@string/enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Grid3"
+        android:id="@+id/textView5" />
+
+    <GridLayout
+        android:visibility="gone"
+        android:id="@+id/Grid4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button4"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:columnCount="9"
+        android:rowCount="3">
+
+        <TextView
+            android:id="@+id/txtNo82"
+            android:text="0"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo83"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo84"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo85"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo86"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo87"
+            android:text="00"
+            style="@style/txtViewStyle" />
+
+        <TextView
+            android:id="@+id/txtNo88"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo89"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo90"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo91"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo92"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo93"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo94"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo95"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo96"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo97"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo98"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo99"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo100"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo101"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo102"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo103"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo104"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo105"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo106"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo107"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo108"
+            android:text="00"
+            style="@style/txtViewStyle" />
+
+    </GridLayout>
+    <Button
+        android:visibility="gone"
+        android:text="Show 5th Ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button5"
+        android:layout_below="@+id/Grid4"
+        android:layout_alignRight="@+id/Grid4"
+        android:layout_alignEnd="@+id/Grid4"
+        android:textSize="10sp"
+        android:background="@color/colorWhite"
+        android:textAllCaps="true"
+        android:onClick="showFifthTicket"/>
+
+    <TextView
+        android:visibility="gone"
+        android:text="@string/enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Grid4"
+        android:layout_marginTop="13dp"
+        android:id="@+id/textView6" />
+    <EditText
+        android:visibility="gone"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:text=""
+        android:layout_alignBottom="@id/textView6"
+        android:layout_alignBaseline="@id/textView6"
+        android:id="@+id/editText5"
+        android:layout_below="@+id/Grid4"
+        android:layout_centerHorizontal="true" />
+
+
+    <GridLayout
+        android:visibility="gone"
+        android:id="@+id/Grid5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button5"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:columnCount="9"
+        android:rowCount="3">
+
+        <TextView
+            android:id="@+id/txtNo109"
+            android:text="0"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo110"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo111"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo112"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo113"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo114"
+            android:text="00"
+            style="@style/txtViewStyle" />
+
+        <TextView
+            android:id="@+id/txtNo115"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo116"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo117"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo118"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo119"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo120"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo121"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo122"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo123"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo124"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo125"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo126"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo127"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo128"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo129"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo130"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo131"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo132"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo133"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo134"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo135"
+            android:text="00"
+            style="@style/txtViewStyle" />
+
+    </GridLayout>
+
+
+    <TextView
+        android:visibility="gone"
+        android:text="@string/enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Grid5"
+        android:layout_marginTop="13dp"
+        android:id="@+id/textView7" />
+    <EditText
+        android:visibility="gone"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText3"
+        android:layout_below="@+id/Grid2"
+        android:layout_toRightOf="@id/textView4"
+        android:layout_alignBottom="@id/textView4"
+        android:layout_alignBaseline="@id/textView4"
+        android:layout_alignLeft="@id/editText2"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:visibility="gone"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText6"
+        android:layout_alignBottom="@id/textView7"
+        android:layout_alignBaseline="@id/textView7"
+        android:layout_below="@id/Grid5"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:visibility="gone"
+        android:text="Show 6th Ticket6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button6"
+        android:layout_below="@+id/Grid5"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="10sp"
+        android:background="@color/colorWhite"
+        android:textAllCaps="true"
+        android:onClick="showSixthTicket"/>
+    <GridLayout
+        android:visibility="gone"
+        android:id="@+id/Grid6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button6"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:columnCount="9"
+        android:rowCount="3">
+
+        <TextView
+            android:id="@+id/txtNo136"
+            android:text="0"
+            style="@style/txtViewStyle" />
+
+        <TextView
+            android:id="@+id/txtNo137"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+
+        <TextView
+            android:id="@+id/txtNo138"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo139"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo140"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo141"
+            android:text="00"
+            style="@style/txtViewStyle" />
+
+        <TextView
+            android:id="@+id/txtNo142"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo143"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo144"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo145"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo146"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo147"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo148"
+            android:text="00"
+            style="@style/txtViewStyle"/>
+        <TextView
+            android:id="@+id/txtNo149"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo150"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo151"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo152"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo153"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo154"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo155"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo156"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo157"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo158"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo159"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo160"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo161"
+            android:text="00"
+            style="@style/txtViewStyle" />
+        <TextView
+            android:id="@+id/txtNo162"
+            android:text="00"
+            style="@style/txtViewStyle" />
+
+    </GridLayout>
+
+    <EditText
+        android:visibility="gone"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_below="@id/Grid3"
+        android:id="@+id/editText4"
+        android:layout_alignBottom="@+id/textView5"
+        android:layout_alignBaseline="@id/textView5"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End of all tickets"
+        android:layout_below="@id/Grid6"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:id="@id/textView8"/>
+
+
+</RelativeLayout>
+</ScrollView>

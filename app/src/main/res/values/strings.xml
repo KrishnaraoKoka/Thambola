@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Thambola_Game</string>
+    <string name="welcome">Welcome to the Game of Thambola</string>
+    <string name="download">Down Load KGK Tickets</string>
+    <string name="tickets">Go to Tickets</string>
+    <string name="options">Go to Options </string>
+    <string name="textContent">To get the best out of the application features tickets of this app
+    "Koka tickets" are to be down loaded, printed and  distributed among the players.Loto Tickets which may be available in market in some places may
+        be used. They may  however be tested at digital tickets plane.
+    </string>
+    <string name="enter">Enter Ticket No</string>
+    <string name="Button_Name">Play</string>
+    <string name="title_activity_options">Options</string>
+    <string name="Button_EnterName">Continue</string>
+    <string name="title_activity_show_results">Show Results</string>
+    <string name="show_result">Show Final Results</string>
+    <string name="event_name">Event Name</string>
+    <string name="winning_tkts">Winning Tkts</string>
+    <string name="early_five">Early Five</string>
+    <string name="corner">Corner four</string>
+    <string name="star">Star Five</string>
+    <string name="first_Line">First Line</string>
+    <string name="Sec_Line">Second Line</string>
+    <string name="thrd_line">Third Line</string>
+    <string name="Fl_house">Full House</string>
+    <string name="flhouse2">2nd Full House</string>
+    <string name="name">kgkrishnarao</string>
+    <string name="Show_results">Show Results</string>
+    <string name="Go_Main">Go to Play</string>
+    <string name="Thambola_Options">Housie
+    Options</string>
+    <string name="tks_from">.......Tkts.......\nFrom..........To</string>
+    <string name="select_events">Select events in the Game</string>
+    <string name="jaldi_Five">Early Five</string>
+    <string name="Corner_Four">Corner Four</string>
+    <string name="star_Five">Star Five</string>
+    <string name="line_one">LineOne</string>
+    <string name="line_two">Line Two</string>
+    <string name="line_three">Line Three</string>
+    <string name="full_house">Full House</string>
+    <string name="sec_full_house">2nd Full House</string>
+    <string name="kgk_tkts">K G K Tickets</string>
+    <string name="other_tkts">Other Tickets</string>
+    <string name="numCalls">Key of the door</string>
+    <string name="title_activity_welcome_to_housie">Welcome To Housie</string>
+
+</resources>
+
