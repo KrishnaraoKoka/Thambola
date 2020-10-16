@@ -1,20 +1,29 @@
 package com.example.krishnarao.thambola_game;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.ToneGenerator;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Vibrator;
 import android.preference.DialogPreference;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.appindexing.Action;
@@ -25,7 +34,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.util.Locale;
 import java.util.Random;
 
+import javax.xml.datatype.Duration;
+
 import static com.example.krishnarao.thambola_game.R.anim.slide_out_left;
+import static com.example.krishnarao.thambola_game.R.anim.slide_out_right;
 
 public class PlayGameActivity extends AppCompatActivity {
 
@@ -37,22 +49,21 @@ public class PlayGameActivity extends AppCompatActivity {
     public int count;
     static String numCalls[];
     static int NumAdresses[][][];
-    Button bUpdates,newGame;
+    static int MandACount [][];
+    Button bUpdates;
     TextToSpeech tts;
     MediaPlayer mediaPlayer;
     Button Play ;
-
+    EditText etTktNo;
     TextView t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20;
     TextView t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31, t32, t33, t34, t35, t36, t37, t38, t39, t40;
     TextView t41, t42, t43, t44, t45, t46, t47, t48, t49, t50, t51, t52, t53, t54, t55, t56, t57, t58, t59, t60;
     TextView t61, t62, t63, t64, t65, t66, t67, t68, t69, t70, t71, t72, t73, t74, t75, t76, t77, t78, t79, t80;
     TextView t81, t82, t83, t84, t85, t86, t87, t88, t89, t90;
-    TextView tBoard;
+    TextView tBoard,tTxtView,tShowTkt ,txtShowHnt,newGame;
+    TextView txtErl,txtPr,txtCor,txtStr,txtMng,txtApple,txt1stLn,txt2ndLn,txt3rdLn,txt1stFh,txt2ndFh ;
     static int num;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
+
     private GoogleApiClient client;
 
 
@@ -67,8 +78,8 @@ public class PlayGameActivity extends AppCompatActivity {
     String text;
     final int mark = -1;
     static int _fr, _to, _max;
-    String jaldi, corner, star, fstLine, secLine, thrdLine, flHouse, flHouse2;
-    static boolean _ef, _cor, _str, _l1, _l2, _l3, _fh, _fh2, _otherTkts, _kgkTkts, _lotoTkts;
+    String jaldi, corner, star,pair,mango,apple, fstLine, secLine, thrdLine, flHouse, flHouse2;
+    static boolean _ef, _cor, _str,_pr,_mng,_apl, _l1, _l2, _l3, _fh, _fh2, _otherTkts, _kgkTkts, _lotoTkts;
     static int Tkts[][][];
     static int LottoTickets[][][];
     static int KokaTkts[][][];
@@ -82,12 +93,12 @@ public class PlayGameActivity extends AppCompatActivity {
 
 
         setVariables();
-        // loadNumAdresses();
+
 
 
         bUpdates = (Button) findViewById(R.id.btnUpdates);
         Play = (Button) findViewById(R.id.play);
-        tBoard = (TextView) findViewById(R.id.txtBoard);
+      //  tBoard = (TextView) findViewById(R.id.txtBoard);
         t1 = (TextView) findViewById(R.id.text1);
         t2 = (TextView) findViewById(R.id.text2);
         t3 = (TextView) findViewById(R.id.text3);
@@ -178,6 +189,22 @@ public class PlayGameActivity extends AppCompatActivity {
         t88 = (TextView) findViewById(R.id.text88);
         t89 = (TextView) findViewById(R.id.text89);
         t90 = (TextView) findViewById(R.id.text90);
+        txtShowHnt =(TextView)findViewById(R.id.txtShowHint);
+
+        etTktNo = (EditText) findViewById(R.id.etEnterTkt);
+        tShowTkt =(TextView)findViewById(R.id.txtShTkt);
+        tTxtView =(TextView)findViewById(R.id.textView8);
+        txtErl =(TextView)findViewById(R.id.textErly);
+        txtPr =(TextView)findViewById(R.id.textPair);
+        txtCor =(TextView)findViewById(R.id.textCorner);
+        txtStr =(TextView)findViewById(R.id.textStar);
+        txtMng =(TextView)findViewById(R.id.textMango);
+        txtApple =(TextView)findViewById(R.id.textApple);
+        txt1stLn =(TextView)findViewById(R.id.text1stLine);
+        txt2ndLn =(TextView)findViewById(R.id.text2ndLine);
+        txt3rdLn =(TextView)findViewById(R.id.text3rdLine);
+        txt1stFh =(TextView)findViewById(R.id.text1stFullHouse);
+        txt2ndFh =(TextView)findViewById(R.id.text2ndFullHouse);
         Play = (Button) findViewById(R.id.play);
         tts = new TextToSpeech(this,new TextToSpeech.OnInitListener(){
             @Override
@@ -186,7 +213,7 @@ public class PlayGameActivity extends AppCompatActivity {
 
             }
         });
-        //Toast.makeText(this, String.valueOf(_rd), Toast.LENGTH_LONG).show();
+
 
         o1 = new TextView[]{t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23,
                 t24, t25, t26, t27, t28, t29, t30, t31, t32, t33, t34, t35, t36, t37, t38, t39, t40, t41, t42, t43, t44, t45, t46, t47, t48, t49, t50,
@@ -206,16 +233,16 @@ public class PlayGameActivity extends AppCompatActivity {
                 "Between the sticks", "Fat lady with a crutch", "Two fat ladies", "All but one", "End of the line"};
 
         Tkts = new int[600][3][5];
-//        if (!_otherTkts) {
-//            bUpdates.setVisibility(View.INVISIBLE);
-//
-//        }
+        MandACount = new int [600][2];
+
         if (_otherTkts) {
            
             bUpdates.setVisibility(View.INVISIBLE);
+            tShowTkt.setVisibility(View.INVISIBLE);
+            etTktNo.setVisibility(View.INVISIBLE);
         }
-        // Toast.makeText(this,"Lotto is  "+ Boolean.toString(_loto),Toast.LENGTH_SHORT).show();
 
+        colorTopTexBoxes();
         if (_kgkTkts) {
             Object[] kgkArray = (Object[]) getIntent().getExtras().getSerializable("kgkTks");
             if (kgkArray != null) {
@@ -225,7 +252,11 @@ public class PlayGameActivity extends AppCompatActivity {
                 }
 
             }
-
+            bUpdates.setVisibility(View.VISIBLE);
+            tShowTkt.setVisibility(View.VISIBLE);
+            etTktNo.setVisibility(View.VISIBLE);
+           topTextboxesShow();
+            colorTopTexBoxes();
             copyKokaToTkts();
 
 
@@ -238,15 +269,20 @@ public class PlayGameActivity extends AppCompatActivity {
                     LottoTickets[i] = (int[][]) lotoArray[i];
                 }
             }
-
+            bUpdates.setVisibility(View.VISIBLE);
+            tShowTkt.setVisibility(View.VISIBLE);
+            etTktNo.setVisibility(View.VISIBLE);
+            topTextboxesShow();
+            colorTopTexBoxes();
             copyLotoToTks();
         }
+        
 
 
 
-        //Toast.makeText(this, Integer.toString(LottoTickets[599][2].length),Toast.LENGTH_LONG).show();
         loadNumAdresses();
-        //Toast.makeText(this,Integer.toString(NumAdresses[90][74][0]),Toast.LENGTH_LONG).show();
+        fillMandAarray();
+
 
         final Button play = (Button) findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
@@ -263,22 +299,30 @@ public class PlayGameActivity extends AppCompatActivity {
                 TextView Number = (TextView) findViewById(R.id.Number);
                 Integer num = new PlayGameActivity().createRandomNumber();
                 //tts.speak(numCalls[num]+num,TextToSpeech.QUEUE_FLUSH,null);
-                markNewArray(num);
+               markNewArray(num);
                 Number.setText(Integer.toString(num));
                 count++;
-                tBoard.setText(Integer.toString(count));
-               Toast toast = Toast.makeText(getApplicationContext(),numCalls[num], Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
-                toast.show();
+                tTxtView.setText("Board Count " +Integer.toString(count));
+               // tBoard.setText(Integer.toString(count));
+                txtShowHnt.setText(numCalls[num]);
+//               Toast toast = Toast.makeText(getApplicationContext(),numCalls[num], Toast.LENGTH_SHORT);
+//                toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
+//                toast.show();
                 o1[num - 1].setBackgroundResource(R.drawable.rounded_txtview);
+/*
                mediaPlayerStop();
                 mediaPlayer = MediaPlayer.create(PlayGameActivity.this,R.raw.beep);
                 mediaPlayer.start();
+*/
+                vibrate();
 
 
                 if (_ef) jaldiCount();
                 if (_cor) cornerCount();
                 if (_str) starCount();
+                if(_pr)PairCount();
+                if(_mng)Mango();
+                if(_apl)Apple();
                 if (_l1) firstLineCount();
                 if (_l2) secondLineCount();
                 if (_l3) thirdLineCount();
@@ -288,7 +332,7 @@ public class PlayGameActivity extends AppCompatActivity {
             }
 
         });
-        newGame = (Button)findViewById(R.id.btnNew);
+        newGame = (TextView) findViewById(R.id.btnNew);
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -297,8 +341,7 @@ public class PlayGameActivity extends AppCompatActivity {
 
         });
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
+
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -322,6 +365,9 @@ public class PlayGameActivity extends AppCompatActivity {
             _ef = b.getBoolean("jaldi");
             _cor = b.getBoolean("corner");
             _str = b.getBoolean("star");
+            _pr =b.getBoolean("pair");
+            _apl = b.getBoolean("apple");
+            _mng = b.getBoolean("mango");
             _l1 = b.getBoolean("fLine");
             _l2 = b.getBoolean("sLine");
             _l3 = b.getBoolean("tLine");
@@ -331,16 +377,7 @@ public class PlayGameActivity extends AppCompatActivity {
             _kgkTkts = b.getBoolean("koka");
             _lotoTkts = b.getBoolean("ltoTkts");
             _max = b.getInt("Max");
-              /*  if (_loto) {
-                    Object[] myArray = (Object[]) getIntent().getExtras().getSerializable("lottoTkts");
-                    //  Object[] myArray = (Object[]) getIntent().getExtras().getSerializable("activeTkts");
-                    if (myArray != null) {
-                        LottoTickets = new int[myArray.length][][];
-                        for (int i = 0; i < myArray.length; i++) {
-                            LottoTickets[i] = (int[][]) myArray[i];
-                        }
-                    }
-                }*/
+
 
 
         }
@@ -376,7 +413,7 @@ public class PlayGameActivity extends AppCompatActivity {
         return num;
     }
 
-    protected final void createDialog(final int id, String message, String title, final StringBuffer sb) {
+    protected final void createDialog(final int id, String message, String title, final StringBuffer sb){
 
         final AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setTitle(title);
@@ -391,10 +428,12 @@ public class PlayGameActivity extends AppCompatActivity {
                 switch (id) {
                     case (1):
                         _ef = false;
-                        _upDates.append("Early Five           :"+sb);
-                        _upDates.append("\n");
 
-                        if (!_cor && !_str && !_l1 && !_l2 && !_l3 && !_fh && !_fh2 ) {
+                        _upDates.append("Early Five            :"+sb);
+                        _upDates.append("\n");
+                        txtErl.setBackgroundColor(getResources().getColor(R.color.red));
+
+                        if (!_cor && !_str && !_l1 && !_pr && !_mng && !_apl  && !_l2 && !_l3 && !_fh && !_fh2 ) {
 
                             Toast.makeText(getApplicationContext(), "All Events Over", Toast.LENGTH_LONG).show();
                         }
@@ -405,7 +444,8 @@ public class PlayGameActivity extends AppCompatActivity {
                         _cor = false;
                         _upDates.append("Corner Four       :"+sb);
                         _upDates.append("\n");
-                        if (!_ef && !_str && !_l1 && !_l2 && !_l3 && !_fh && !_fh2 ) {
+                        txtCor.setBackgroundColor(getResources().getColor(R.color.red));
+                        if (!_ef && !_str && !_l1 && !_pr && !_mng && !_apl  && !_l2 && !_l3 && !_fh && !_fh2 ) {
 
                             Toast.makeText(getApplicationContext(), "All Events Over", Toast.LENGTH_LONG).show();
                         }
@@ -417,7 +457,8 @@ public class PlayGameActivity extends AppCompatActivity {
                         _str = false;
                         _upDates.append("Star Five             :"+ sb);
                         _upDates.append("\n");
-                        if (!_ef && !_cor && !_l1 && !_l2 && !_l3 && !_fh && !_fh2 ) {
+                        txtStr.setBackgroundColor(getResources().getColor(R.color.red));
+                        if (!_cor && !_ef && !_l1 && !_pr && !_mng && !_apl  && !_l2 && !_l3 && !_fh && !_fh2 ) {
                             Toast.makeText(getApplicationContext(), "All Events Over", Toast.LENGTH_LONG).show();
                         }
                         break;
@@ -427,10 +468,9 @@ public class PlayGameActivity extends AppCompatActivity {
                         _l1 = false;
                         _upDates.append( "First Line            :"+sb);
                         _upDates.append("\n");
-//                        _upDates.append("First Line:     ");
-//                        _upDates.append(sb);
-                        // _upDates.append("\n");
-                        if (!_ef && !_cor && !_str && !_l2 && !_l3 && !_fh && !_fh2  ) {
+                        txt1stLn.setBackgroundColor(getResources().getColor(R.color.red));
+
+                        if (!_cor && !_str && !_ef && !_pr && !_mng && !_apl  && !_l2 && !_l3 && !_fh && !_fh2 ) {
                             Toast.makeText(getApplicationContext(), "All Events Over", Toast.LENGTH_LONG).show();
                         }
 
@@ -440,10 +480,10 @@ public class PlayGameActivity extends AppCompatActivity {
                     case (5): {
                         _l2 = false;
                         _upDates.append( "Second Line       :"+sb);
-                       /* _upDates.append("Second Line :");
-                        _upDates.append(sb);*/
+
                         _upDates.append("\n");
-                        if (!_ef && !_cor && !_str && !_l1 && !_l3 && !_fh && !_fh2 ) {
+                        txt2ndLn.setBackgroundColor(getResources().getColor(R.color.red));
+                        if (!_cor && !_str && !_l1 && !_pr && !_mng && !_apl  && !_ef && !_l3 && !_fh && !_fh2 ){
                             Toast.makeText(getApplicationContext(), "All Events Over", Toast.LENGTH_LONG).show();
                         }
                         break;
@@ -454,7 +494,8 @@ public class PlayGameActivity extends AppCompatActivity {
                         _upDates.append( "Third Line          :"+ sb);
 
                         _upDates.append("\n");
-                        if (!_ef && !_cor && !_str && !_l1 && !_l2 && !_fh && !_fh2 ) {
+                        txt3rdLn.setBackgroundColor(getResources().getColor(R.color.red));
+                        if (!_cor && !_str && !_l1 && !_pr && !_mng && !_apl  && !_l2 && !_ef && !_fh && !_fh2 ) {
                             Toast.makeText(getApplicationContext(), "All Events Over", Toast.LENGTH_LONG).show();
                         }
                         break;
@@ -464,7 +505,8 @@ public class PlayGameActivity extends AppCompatActivity {
                         _fh = false;
                         _upDates.append( "Full House         :" +sb);
                         _upDates.append("\n");
-                        if (!_ef && !_cor && !_str && !_l1 && !_l2 && !_l3 && !_fh2 ) {
+                        txt1stFh.setBackgroundColor(getResources().getColor(R.color.red));
+                        if (!_cor && !_str && !_l1 && !_pr && !_mng && !_apl  && !_l2 && !_l3 && !_ef && !_fh2 ) {
                             Toast.makeText(getApplicationContext(), "All Events Over", Toast.LENGTH_LONG).show();
                         }
                         break;
@@ -474,7 +516,40 @@ public class PlayGameActivity extends AppCompatActivity {
                         _fh2 = false;
                         _upDates.append( "2nd Full House :"+ sb);
                         _upDates.append("\n");
-                        if (!_ef && !_cor && !_str && !_l1 && !_l2 && !_l3 && !_fh && !_fh2 ) {
+                        txt2ndFh.setBackgroundColor(getResources().getColor(R.color.red));
+                        if (!_ef && !_cor && !_str && !_mng&& !_apl && !_pr
+                                && !_l1 && !_l2 && !_l3 && !_fh && !_fh2) {
+                            Toast.makeText(getApplicationContext(), "All Events Over", Toast.LENGTH_LONG).show();
+                        }
+                        break;
+                    }
+                    case(9): {
+                        _pr = false;
+                        _upDates.append("Pair                     :" + sb);
+                        _upDates.append("\n");
+                        txtPr.setBackgroundColor(getResources().getColor(R.color.red));
+                        if (!_ef && !_cor && !_str && !_mng && !_apl && !_l1 && !_l2 && !_l3 && !_fh && !_fh2) {
+                            Toast.makeText(getApplicationContext(), "All Events Over", Toast.LENGTH_LONG).show();
+                        }
+                        break;
+                    }
+
+                    case (10): {
+                        _mng = false;
+                        _upDates.append("Mango                :" + sb);
+                        _upDates.append("\n");
+                        txtMng.setBackgroundColor(getResources().getColor(R.color.red));
+                        if (!_ef && !_cor && !_str && !_pr && !_apl && !_l1 && !_l2 && !_l3 && !_fh && !_fh2) {
+                            Toast.makeText(getApplicationContext(), "All Events Over", Toast.LENGTH_LONG).show();
+                        }
+                        break;
+                    }
+                    case (11): {
+                        _apl = false;
+                        _upDates.append("Apple                 :" + sb);
+                        _upDates.append("\n");
+                        txtApple.setBackgroundColor(getResources().getColor(R.color.red));
+                        if (!_ef && !_cor && !_str && !_pr && !_mng && !_l1 && !_l2 && !_l3 && !_fh && !_fh2) {
                             Toast.makeText(getApplicationContext(), "All Events Over", Toast.LENGTH_LONG).show();
                         }
                         break;
@@ -494,7 +569,7 @@ public class PlayGameActivity extends AppCompatActivity {
             }
         });
         AlertDialog dialog = adb.create();
-        // dialog.getWindow().setBackgroundDrawableResource(R.color.trans);
+
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 
         lp.copyFrom(dialog.getWindow().getAttributes());
@@ -517,9 +592,9 @@ public class PlayGameActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 Intent in = new Intent(PlayGameActivity.this, MainActivity.class);
                 startActivity(in);
-                overridePendingTransition(R.anim.slide_in_right, slide_out_left);
+                overridePendingTransition(R.anim.slide_in_left, slide_out_right);
                 finish();
-                // onBackPressed();
+
             }
         });
         builder1.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -537,9 +612,85 @@ public class PlayGameActivity extends AppCompatActivity {
         su.setTitle("Results Update");
         su.setMessage(_upDates);
         su.setPositiveButton("OK", null);
-        su.show();
-    }
+        AlertDialog builder = su.show();
+        // su.show();
 
+        builder.getWindow().setLayout(1000,1500);
+
+
+    }
+    public void showTicket(View view) {
+        int No =0;
+        No = Integer.parseInt(etTktNo.getText().toString());
+        if(etTktNo.getText().toString()=="") {
+            Toast.makeText(this, "Pl enter No from )" + _max, Toast.LENGTH_LONG).show();
+             return ;}
+        if (No < 1 || No > _max) {
+            Toast.makeText(getApplicationContext(), "Enter Tkt Nos From 1 to "+ _max, Toast.LENGTH_LONG).show();
+            return ;
+        }
+        StringBuilder sb =new StringBuilder();
+        for(int i =0;i<3;i++){
+            for(int j=0; j<5;j++){
+                if (Tkts[No-1][i][j]<0) {
+//                    String sr = "";
+//                    sr.equals(String.valueOf(Tkts[No-1][i][j]));
+                    sb.append("(");
+                    sb.append(Tkts[No-1][i][j] * mark+" ");
+                    sb.append(")");
+
+                }
+                else{
+
+                    sb.append(Tkts[No-1][i][j] +" ");
+
+                }
+            }
+            sb.append("\n");
+        }
+        String title = "";
+        if(_kgkTkts)title="KGK Ticket "+etTktNo.getText().toString();
+        if(_lotoTkts)title="Lotto Ticket "+etTktNo.getText().toString();
+        AlertDialog.Builder su = new AlertDialog.Builder(this);
+        su.setTitle(title);
+
+        su.setMessage(sb);
+        su.setPositiveButton("OK", null);
+        AlertDialog builder = su.show();
+       // su.show();
+
+       builder.getWindow().setLayout(800,1000);
+
+      //  builder.getWindow().setBackgroundDrawable(null);
+        etTktNo.setText("");
+    }
+    public void topTextboxesShow(){
+        txtErl.setVisibility(View.VISIBLE);
+        txtPr.setVisibility(View.VISIBLE);
+        txtCor.setVisibility(View.VISIBLE);
+        txtStr.setVisibility(View.VISIBLE);
+        txtMng.setVisibility(View.VISIBLE);
+        txtApple.setVisibility(View.VISIBLE);
+        txt1stLn.setVisibility(View.VISIBLE);
+        txt2ndLn.setVisibility(View.VISIBLE);
+        txt3rdLn.setVisibility(View.VISIBLE);
+        txt1stFh.setVisibility(View.VISIBLE);
+        txt2ndFh.setVisibility(View.VISIBLE);
+    }
+    public void colorTopTexBoxes() {
+        if(!_ef)txtErl.setBackgroundColor(getResources().getColor(R.color.blue));
+        if(!_pr)txtPr.setBackgroundColor(getResources().getColor(R.color.blue));
+        if(!_cor)txtCor.setBackgroundColor(getResources().getColor(R.color.blue));
+        if(!_str)txtStr.setBackgroundColor(getResources().getColor(R.color.blue));
+        if(!_mng)txtMng.setBackgroundColor(getResources().getColor(R.color.blue));
+        if(!_apl)txtApple.setBackgroundColor(getResources().getColor(R.color.blue));
+        if(!_l1)txt1stLn.setBackgroundColor(getResources().getColor(R.color.blue));
+        if(!_l2)txt2ndLn.setBackgroundColor(getResources().getColor(R.color.blue));
+        if(!_l3)txt3rdLn.setBackgroundColor(getResources().getColor(R.color.blue));
+        if(!_fh)txt1stFh.setBackgroundColor(getResources().getColor(R.color.blue));
+        if(!_fh2)txt2ndFh.setBackgroundColor(getResources().getColor(R.color.blue));
+
+    }
 
     boolean hasNumInStar(int tk) {
         boolean b = false;
@@ -559,6 +710,38 @@ public class PlayGameActivity extends AppCompatActivity {
             for (int j = 0; j < 5; j++)
                 if (Tkts[tk][i][j] == num * mark) b = true;
         return b;
+    }
+    boolean hasNumInMango(int tk){
+        boolean b = false;
+        if(num <46) {
+            for (int i = 0; i < 3; i++)
+                for (int j = 0; j < 5; j++) {
+                    if (Tkts[tk][i][j] == num * mark) {
+                        b = true;
+                    }
+                }
+        }
+        return b;
+    }
+    boolean hasNumInApple(int tk) {
+        boolean b = false;
+        if (num > 45) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 5; j++) {
+                    if (Tkts[tk][i][j] == num * mark) b = true;
+                }
+              }
+            }
+        return b;
+    }
+    boolean isPair(int n1,int n2 ){
+        boolean pair = false;
+        if(n1*mark == num || n2*mark==num) {
+            int a = (n1 * mark) / 10;
+            int b = (n2 * mark) / 10;
+            if (b - a == 1) pair = true;
+        }
+        return pair;
     }
 
     boolean hasNumInCorner(int tk) {
@@ -599,25 +782,9 @@ public class PlayGameActivity extends AppCompatActivity {
             }
         }
         if (sb.length() > 0) {
-            // gen.setEnabled(
-            // else);
-            //Toast.makeText(getApplicationContext(), "Tkts: " + sb + " Wins early Five", Toast.LENGTH_LONG).show()
             setText("Tickets: " + sb + "Wins Early Five");
-
-
-            // gen.setEnabled(false);
-            // _notify();
-
             createDialog(1, getText(), ttl, sb);
             jaldi = sb.toString();
-            // notify();
-            //   _upDates.append("Early Five:  ");
-            // _upDates.append(sb);
-            //   _upDates.append("\n");
-
-            //Log.i("Krishna", jaldi);
-            // Toast.makeText(getApplicationContext(), jaldi.toString(), Toast.LENGTH_LONG).show();
-
 
         }
     }
@@ -642,10 +809,6 @@ public class PlayGameActivity extends AppCompatActivity {
             // _notify();
             createDialog(2, getText(), ttl, sb);
             corner = sb.toString();
-         /*   _upDates.append("Corner Four:  ");
-            _upDates.append(sb1);
-            _upDates.append("\n");*/
-
         }
     }
 
@@ -701,7 +864,7 @@ public class PlayGameActivity extends AppCompatActivity {
             // Toast.makeText(getApplicationContext(), "Tkts: " + msg + " Wins First Line", Toast.LENGTH_LONG).show();
             // _l1 = false;
 
-            setText("Tickets: " + sb + "Wins First Line");
+            setText("Tickets: " + sb + " Wins First Line");
             createDialog(4, getText(), ttl, sb);
             fstLine = sb.toString();
           /*  _upDates.append("First Line:  ");
@@ -726,15 +889,10 @@ public class PlayGameActivity extends AppCompatActivity {
             }
         }
         if (sb.length() > 0) {
-            //  Toast.makeText(getApplicationContext(), "Tkts: " + msg + " Wins Second Line", Toast.LENGTH_LONG).show();
-            // _l2 = false;
 
             setText("Tickets: " + sb + "Wins Second Line");
             createDialog(5, getText(), ttl, sb);
             secLine = sb.toString();
-          /*  _upDates.append("Second Line:  ");
-            _upDates.append(sb);
-            _upDates.append("\n"); */
         }
     }
 
@@ -757,24 +915,16 @@ public class PlayGameActivity extends AppCompatActivity {
 
         }
         if (sb.length() > 0) {
-            // Toast.makeText(getApplicationContext(), "Tkts: " + msg + " Wins Third Line", Toast.LENGTH_LONG).show();
-            // _l3 = false;
-            // thrdLine = msg;
             setText("Tickets: " + sb + "Wins Third Line");
             createDialog(6, getText(), ttl, sb);
             thrdLine = sb.toString();
-         /*  _upDates.append("Third Line:  ");
-           _upDates.append(sb);
-            _upDates.append("\n");*/
-
         }
-
     }
 
     // select the ticket for the 1st fullhouse  event
     public void fullHouseCount() {
         StringBuffer sb = new StringBuffer();
-        String ttl = "Hoseie Full House ";
+        String ttl = "Hoseie First Full House";
         for (int i = _fr - 1; i < _to; i++) {
             int jc = 0;
             for (int j = 0; j < 3; j++) {
@@ -788,19 +938,10 @@ public class PlayGameActivity extends AppCompatActivity {
 
         }
         if (sb.length() > 0) {
-            // Toast.makeText(getApplicationContext(), "Tkts: " + sb + " Wins First Full House", Toast.LENGTH_LONG).show();
-            // _fh = false;
-            //Log.i("Krishna", jaldi );
-            // jaldi = sb.toString();
             setText("Tickets: " + sb + "Wins Full house");
             createDialog(7, getText(), ttl, sb);
             flHouse = sb.toString();
-           /* _upDates.append("Full House:  ");
-            _upDates.append(sb);
-            _upDates.append("\n"); */
-
         }
-
     }
 
     // select the ticket for the 2nd FullHouse  event
@@ -820,30 +961,86 @@ public class PlayGameActivity extends AppCompatActivity {
 
         }
         if (sb.length() > 0) {
-            // Toast.makeText(getApplicationContext(), "Tkts: " + sb + " Wins Second Full House", Toast.LENGTH_LONG).show();
-            // _fh2 = false;
-            //Log.i("Krishna", fh2 );
-
             setText("Tickets: " + sb + "Wins Second full house");
             createDialog(8, getText(), ttl, sb);
             flHouse2 = sb.toString();
-          /*  _upDates.append("2nd Full House:  ");
-            _upDates.append(sb);
-            _upDates.append("\n"); */
-            //btnResult.setVisibility(View.VISIBLE);
-
         }
     }
+    public void PairCount()
+    {
+        StringBuffer sb = new StringBuffer();
+        String ttl = "Housie Pair ";
+        for (int i = _fr - 1; i < _to; i++) {
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 4; k++) {
+                    if (0>Tkts[i][j][k] && 0>Tkts[i][j][k+1] ) {
+                        if(isPair(Tkts[i][j][k],Tkts[i][j][k+1])){
+                            if(Tkts[i][j][k] *mark==num || Tkts[i][j][k+1]*mark==num) {
+                                sb.append(Integer.toString(i + 1) + " ");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (sb.length() > 0) {
+            setText("Tickets: " + sb + "Wins Pair");
+            createDialog(9, getText(), ttl, sb);
+            pair = sb.toString();
+        }
 
+    }
+    public void Mango()
+    {
+        StringBuffer sb = new StringBuffer();
+        String ttl = "Housie Mango ";
+        for (int i = _fr - 1; i < _to; i++) {
+            int mngCount =0;
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 5; k++) {
+                    if (Tkts[i][j][k] < 0 && Tkts[i][j][k] >-46 ) mngCount++ ;
+                }
+            }
+            if (mngCount == MandACount[i][0] && hasNumInMango(i)) {
+
+                sb.append(Integer.toString(i + 1) + " ");
+            }
+        }
+        if (sb.length() > 0) {
+            setText("Tickets: " + sb + "Wins Mango");
+            createDialog(10, getText(), ttl, sb);
+            mango = sb.toString();
+        }
+    }
+    public void Apple()
+    {
+        StringBuffer sb = new StringBuffer();
+        String ttl = "Housie Apple ";
+        for (int i = _fr - 1; i < _to; i++) {
+            int aplCount =0;
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 5; k++) {
+
+                    if (Tkts[i][j][k] < 0 &&Tkts[i][j][k] < -45 ) aplCount++ ;
+                }
+            }
+            if (aplCount == MandACount[i][1] && hasNumInApple(i)) {
+                sb.append(Integer.toString(i + 1) + " ");
+            }
+        }
+        if (sb.length() > 0) {
+            setText("Tickets: " + sb + "Wins Apple");
+            createDialog(11, getText(), ttl, sb);
+            apple = sb.toString();
+        }
+    }
     public void markNewArray(int digit) {
         int a, b, c;
         for (int n = formatFromTo(_fr - 1); n < formatFromTo(_to) + 1; n++) {
             a = NumAdresses[digit][n][0];
             b = NumAdresses[digit][n][1];
             c = NumAdresses[digit][n][2];
-            // Tkts[a][b][c] = Tkts[a][b][c] * mark;
             Tkts[a][b][c] *= mark;
-
         }
     }
 
@@ -929,5 +1126,27 @@ public class PlayGameActivity extends AppCompatActivity {
             mediaPlayer=null;
         }
     }
+    public void fillMandAarray(){
+
+        for (int tk =0; tk<600;tk++){
+            int count = 0;
+            for( int j = 0;j<3; j++){
+                for (int k =0;k <5; k++){
+                    if(Tkts[tk][j][k] <46)count ++;
+                }
+            }
+            MandACount[tk][0]=count;
+            MandACount[tk][1]= 15-count ;
+
+        }
+
+    }
+    public void vibrate(){
+        Vibrator vibrator =(Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        long patern[]={0,100,100};
+        vibrator.vibrate(patern,-1);
+    }
+
+
 
 }

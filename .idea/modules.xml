@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Thambola_Game.iml" filepath="$PROJECT_DIR$/Thambola_Game.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/arraytest/arraytest.iml" filepath="$PROJECT_DIR$/arraytest/arraytest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Thambola_Game.iml" filepath="$PROJECT_DIR$/Thambola_Game.iml" group="Thambola_Game" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Thambola_Game/app" />
+      <module fileurl="file://$PROJECT_DIR$/arraytest/arraytest.iml" filepath="$PROJECT_DIR$/arraytest/arraytest.iml" group="Thambola_Game/arraytest" />
     </modules>
   </component>
 </project>

@@ -4,8 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorYellow">#FFF000</color>
+    <color name="colorblack">#000000</color>
     <color name="blue">#0000FF</color>
-    <color name="White">#FFFFFF</color>
+    <color name= "red">#FF0000</color>
+    <color name="green">#008000</color><![CDATA[
+    ]]><color name="White">#FFFFFF</color>
     <color name="aqua">#00FFFF</color>
     <color name="trans">#80FFFFFF</color>
 </resources>

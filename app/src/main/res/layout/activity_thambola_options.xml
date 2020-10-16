@@ -16,10 +16,9 @@
         android:layout_height="wrap_content"
         android:text="@string/Thambola_Options"
         android:id="@+id/textView3"
-        android:paddingBottom="6dp"
+        android:paddingBottom="4dp"
         android:textStyle="bold"
-        android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -43,18 +42,17 @@
         android:layout_height="wrap_content"
         android:text="@string/select_events"
         android:id="@+id/textView5"
-        android:paddingBottom="30dp"
+        android:paddingBottom="10dp"
         android:textStyle="bold"
         android:layout_below="@id/textView3"
-
-        android:layout_alignParentLeft="true"
-        android:textSize="25sp" />
+        android:layout_centerHorizontal="true"
+        android:textSize="15sp" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/jaldi_Five"
-        android:paddingBottom="6dp"
+        android:paddingBottom="4dp"
         android:id="@+id/chkEf"
         android:checked="false"
         android:layout_below="@+id/textView5"
@@ -65,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Corner_Four"
-        android:paddingBottom="6dp"
+        android:paddingBottom="4dp"
         android:id="@+id/chkCf"
         android:checked="false"
         android:layout_below="@+id/chkEf" />
@@ -84,11 +82,35 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/apple"
+        android:paddingBottom="6dp"
+        android:id="@+id/apple"
+        android:checked="false"
+        android:layout_below="@+id/chkSf" />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pair"
+        android:paddingBottom="6dp"
+        android:id="@+id/pair"
+        android:checked="false"
+        android:layout_below="@+id/apple" />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mango"
+        android:paddingBottom="6dp"
+        android:id="@+id/mango"
+        android:checked="false"
+        android:layout_below="@+id/pair" />
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/line_one"
         android:paddingBottom="6dp"
         android:id="@+id/chkL1"
         android:checked="false"
-        android:layout_below="@+id/chkSf" />
+        android:layout_below="@+id/mango" />
 
     <CheckBox
         android:layout_width="wrap_content"
@@ -142,7 +164,10 @@
         android:width="60dp"
         android:layout_below="@+id/chkCf"
         android:layout_toLeftOf="@+id/txtTo"
-        android:layout_toStartOf="@+id/txtTo" />
+        android:layout_toStartOf="@+id/txtTo"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:background="@drawable/round_txt"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -154,24 +179,25 @@
         android:maxLength="3"
         android:layout_alignTop="@+id/txtFrom"
         android:layout_alignRight="@+id/textView5"
-        android:layout_alignEnd="@+id/textView5" />
+        android:layout_alignEnd="@+id/textView5"
+        android:gravity="center"
+        android:background="@drawable/round_txt"/>
 
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
         android:id="@+id/rg_Options"
-        android:layout_below="@+id/chkL3"
+        android:layout_below="@+id/apple"
         android:layout_alignLeft="@+id/enter"
         android:layout_alignStart="@+id/enter"
-        android:layout_above="@+id/button4">
+        android:layout_above="@+id/chkL2">
 
         <RadioButton
             android:layout_width="136dp"
             android:layout_height="wrap_content"
             android:text="@string/kgk_tkts"
             android:id="@+id/rdoKgk"
-            android:onClick="onRadioButtonClicked"
             android:checked="false"
             android:width="15dp" />
         <RadioButton
@@ -184,7 +210,6 @@
             android:layout_width="129dp"
             android:layout_height="wrap_content"
             android:text="@string/other_tkts"
-            android:onClick="onRadioButtonClicked"
             android:id="@+id/rdoOthers"
             android:checked="false"
             android:focusable="false" />
@@ -207,14 +232,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Home"
-        android:onClick="onClickGotoWelcome"
         android:clickable="false"
         android:editable="false"
         android:enabled="true"
-        android:layout_below="@+id/chk2ndFh"
-        android:layout_alignRight="@+id/chkFh"
-        android:layout_alignEnd="@+id/chkFh"
-        android:layout_marginTop="34dp"
+        android:layout_below="@+id/enter"
+        android:layout_alignLeft="@id/enter"
+
+        android:layout_marginTop="25dp"
         android:id="@+id/btnHome" />
 
     <Button
@@ -224,7 +248,7 @@
         android:id="@+id/enter"
 
         android:enabled="false"
-        android:layout_alignTop="@+id/btnHome"
+        android:layout_alignTop="@+id/chkL2"
         android:layout_alignLeft="@+id/textView4"/>
 
 

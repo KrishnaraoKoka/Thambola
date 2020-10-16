@@ -10,6 +10,144 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.krishnarao.thambola_game.PlayGameActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Erly5"
+        android:id="@+id/textErly"
+        android:textSize="10sp"
+        android:layout_alignLeft="@id/gridLayout"
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/green"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:visibility="invisible"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pair"
+        android:id="@+id/textPair"
+        android:textSize="10sp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/green"
+        android:layout_toRightOf="@+id/textErly"
+        android:visibility="invisible"
+        android:layout_alignTop="@id/textErly" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="corn"
+        android:id="@+id/textCorner"
+        android:textSize="10sp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/green"
+        android:layout_toRightOf="@+id/textPair"
+        android:visibility="invisible"
+        android:layout_alignTop="@id/textPair" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="star"
+        android:id="@+id/textStar"
+        android:textSize="10sp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/green"
+        android:layout_toRightOf="@+id/textCorner"
+        android:visibility="invisible"
+        android:layout_alignTop="@id/textCorner" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mango"
+        android:id="@+id/textMango"
+        android:textSize="10sp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/green"
+        android:layout_toRightOf="@+id/textStar"
+        android:visibility="invisible"
+        android:layout_alignTop="@id/textStar" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aple"
+        android:id="@+id/textApple"
+        android:textSize="10sp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/green"
+        android:layout_toRightOf="@+id/textMango"
+        android:visibility="invisible"
+        android:layout_alignTop="@id/textMango" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1stLn"
+        android:id="@+id/text1stLine"
+        android:textSize="10sp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/green"
+        android:layout_toRightOf="@+id/textApple"
+        android:visibility="invisible"
+
+        android:layout_alignTop="@id/textApple" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2ndLn"
+        android:id="@+id/text2ndLine"
+        android:textSize="10sp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/green"
+        android:layout_toRightOf="@+id/text1stLine"
+        android:visibility="invisible"
+        android:layout_alignTop="@id/text1stLine" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3rdLn"
+        android:id="@+id/text3rdLine"
+        android:textSize="10sp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/green"
+        android:layout_toRightOf="@+id/text2ndLine"
+        android:visibility="invisible"
+        android:layout_alignTop="@id/text2ndLine" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1stFh"
+        android:id="@+id/text1stFullHouse"
+        android:textSize="10sp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/green"
+        android:layout_toRightOf="@+id/text3rdLine"
+        android:visibility="invisible"
+        android:layout_alignTop="@id/text3rdLine" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2ndFh"
+        android:id="@+id/text2ndFullHouse"
+        android:textSize="10sp"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/green"
+        android:layout_toRightOf="@+id/text1stFullHouse"
+        android:visibility="invisible"
+        android:layout_alignTop="@id/text3rdLine" />
 
     <GridLayout
         android:layout_width="wrap_content"
@@ -21,19 +159,17 @@
         android:useDefaultMargins="true"
         android:clickable="true"
         android:layout_marginBottom="5dp"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/textErly"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
         <TextView
             android:id="@+id/text1"
             android:text="1 "
-
             android:textSize="22sp"
             android:layout_row="0"
             android:layout_column="0"
             android:layout_width="wrap_content"
-            android:padding="2dp"
-            />
+            android:padding="2dp" />
         <TextView
             android:id="@+id/text2"
             android:textSize="22sp"
@@ -50,7 +186,7 @@
         <TextView
             android:id="@+id/text4"
             android:textSize="22sp"
-            android:text="4 "
+            android:text="4"
 
             android:layout_row="0"
             android:layout_column="4" />
@@ -58,7 +194,6 @@
             android:id="@+id/text5"
             android:textSize="22sp"
             android:text="5 "
-
             android:layout_row="0"
             android:layout_column="5" />
 
@@ -73,14 +208,12 @@
             android:id="@+id/text7"
             android:textSize="22sp"
             android:text="7 "
-
             android:layout_row="0"
             android:layout_column="7" />
         <TextView
             android:id="@+id/text8"
             android:textSize="22sp"
             android:text="8 "
-
             android:layout_row="0"
             android:layout_column="8" />
         <TextView
@@ -94,29 +227,24 @@
             android:id="@+id/text10"
             android:text="10"
             android:textSize="22sp"
-
             android:layout_row="0"
             android:layout_column="10" />
         <TextView
             android:id="@+id/text11"
             android:text="11"
             android:textSize="22sp"
-
             android:layout_row="2"
             android:layout_column="0" />
         <TextView
             android:id="@+id/text12"
             android:textSize="22sp"
             android:text="12"
-
             android:layout_row="2"
             android:layout_column="1" />
         <TextView
             android:id="@+id/text13"
             android:textSize="22sp"
             android:text="13"
-
-
             android:layout_row="2"
             android:layout_column="3" />
 
@@ -135,7 +263,6 @@
             android:text="15"
             android:textSize="22sp"
             android:layout_row="2"
-
             android:layout_column="5"
             android:layout_below="@+id/text14"
             android:layout_toRightOf="@+id/textView"
@@ -145,23 +272,18 @@
             android:id="@+id/text16"
             android:text="16"
             android:textSize="22sp"
-
             android:layout_row="2"
             android:layout_column="6" />
         <TextView
             android:id="@+id/text17"
             android:textSize="22sp"
             android:text="17"
-
-
             android:layout_row="2"
             android:layout_column="7" />
         <TextView
             android:id="@+id/text18"
             android:textSize="22sp"
             android:text="18"
-
-
             android:layout_row="2"
             android:layout_column="8" />
         <TextView
@@ -174,7 +296,6 @@
             android:id="@+id/text20"
             android:text="20"
             android:textSize="22sp"
-
             android:layout_row="2"
             android:layout_column="10" />
 
@@ -182,7 +303,6 @@
             android:id="@+id/text21"
             android:text="21"
             android:textSize="22sp"
-
             android:layout_row="3"
             android:layout_column="0" />
 
@@ -232,8 +352,6 @@
             android:id="@+id/text28"
             android:textSize="22sp"
             android:text="28"
-
-
             android:layout_row="3"
             android:layout_column="8" />
         <TextView
@@ -247,22 +365,18 @@
             android:id="@+id/text30"
             android:text="30"
             android:textSize="22sp"
-
             android:layout_row="3"
             android:layout_column="10" />
         <TextView
             android:id="@+id/text31"
             android:text="31"
             android:textSize="22sp"
-
             android:layout_row="5"
             android:layout_column="0" />
         <TextView
             android:id="@+id/text32"
             android:textSize="22sp"
             android:text="32"
-
-
             android:layout_row="5"
             android:layout_column="1" />
         <TextView
@@ -275,34 +389,29 @@
             android:id="@+id/text34"
             android:text="34"
             android:textSize="22sp"
-
             android:layout_row="5"
             android:layout_column="4" />
         <TextView
             android:id="@+id/text35"
             android:text="35"
             android:textSize="22sp"
-
             android:layout_row="5"
             android:layout_column="5" />
         <TextView
             android:id="@+id/text36"
             android:textSize="22sp"
             android:text="36"
-
             android:layout_row="5"
             android:layout_column="6" />
         <TextView
             android:id="@+id/text37"
             android:textSize="22sp"
             android:text="37"
-
             android:layout_row="5"
             android:layout_column="7" />
         <TextView
             android:id="@+id/text38"
             android:text="38"
-
             android:textSize="22sp"
             android:layout_row="5"
             android:layout_column="8" />
@@ -312,7 +421,6 @@
             android:textSize="22sp"
             android:layout_column="9"
             android:layout_row="5"/>
-
         <TextView
             android:id="@+id/text40"
             android:text="40"
@@ -323,15 +431,12 @@
             android:id="@+id/text41"
             android:text="41"
             android:textSize="22sp"
-
             android:layout_row="6"
             android:layout_column="0" />
         <TextView
             android:id="@+id/text42"
             android:textSize="22sp"
             android:text="42"
-
-
             android:layout_row="6"
             android:layout_column="1" />
         <TextView
@@ -344,29 +449,24 @@
             android:id="@+id/text44"
             android:text="44"
             android:textSize="22sp"
-
             android:layout_row="6"
             android:layout_column="4" />
         <TextView
             android:id="@+id/text45"
             android:text="45"
             android:textSize="22sp"
-
             android:layout_row="6"
             android:layout_column="5" />
         <TextView
             android:id="@+id/text46"
             android:textSize="22sp"
             android:text="46"
-
             android:layout_row="6"
             android:layout_column="6" />
         <TextView
             android:id="@+id/text47"
             android:textSize="22sp"
             android:text="47"
-
-
             android:layout_row="6"
             android:layout_column="7" />
         <TextView
@@ -392,15 +492,12 @@
             android:id="@+id/text51"
             android:text="51"
             android:textSize="22sp"
-
             android:layout_row="7"
             android:layout_column="0" />
         <TextView
             android:id="@+id/text52"
             android:textSize="22sp"
             android:text="52"
-
-
             android:layout_row="7"
             android:layout_column="1" />
         <TextView
@@ -413,21 +510,18 @@
             android:id="@+id/text54"
             android:text="54"
             android:textSize="22sp"
-
             android:layout_row="7"
             android:layout_column="4" />
         <TextView
             android:id="@+id/text55"
             android:text="55"
             android:textSize="22sp"
-
             android:layout_row="7"
             android:layout_column="5" />
         <TextView
             android:id="@+id/text56"
             android:text="56"
             android:textSize="22sp"
-
             android:layout_row="7"
             android:layout_column="6" />
         <TextView
@@ -446,21 +540,18 @@
             android:id="@+id/text59"
             android:text="59"
             android:textSize="22sp"
-
             android:layout_row="7"
             android:layout_column="9" />
         <TextView
             android:id="@+id/text60"
             android:text="60"
             android:textSize="22sp"
-
             android:layout_row="7"
             android:layout_column="10" />
         <TextView
             android:id="@+id/text61"
             android:textSize="22sp"
             android:text="61"
-
             android:layout_row="8"
             android:layout_column="0" />
         <TextView
@@ -493,7 +584,6 @@
             android:id="@+id/text66"
             android:textSize="22sp"
             android:text="66"
-
             android:layout_row="8"
             android:layout_column="6" />
         <TextView
@@ -525,17 +615,16 @@
             android:id="@+id/text71"
             android:textSize="22sp"
             android:text="71"
-
             android:layout_row="9"
             android:layout_column="0" />
+
         <TextView
             android:id="@+id/text72"
-            android:textSize="22sp"
-            android:text="72"
-
-
             android:layout_row="9"
-            android:layout_column="1" />
+            android:layout_column="1"
+            android:text="72"
+            android:textSize="22sp" />
+
         <TextView
             android:id="@+id/text73"
             android:text="73"
@@ -548,27 +637,22 @@
             android:textSize="22sp"
             android:layout_column="4"
             android:layout_row="9"/>
-
         <TextView
             android:id="@+id/text75"
             android:text="75"
             android:textSize="22sp"
             android:layout_column="5"
             android:layout_row="9"/>
-
         <TextView
             android:id="@+id/text76"
             android:textSize="22sp"
             android:text="76"
-
             android:layout_row="9"
             android:layout_column="6" />
         <TextView
             android:id="@+id/text77"
             android:textSize="22sp"
             android:text="77"
-
-
             android:layout_row="9"
             android:layout_column="7" />
         <TextView
@@ -583,7 +667,6 @@
             android:textSize="22sp"
             android:layout_column="9"
             android:layout_row="9"/>
-
         <TextView
             android:id="@+id/text80"
             android:text="80"
@@ -594,15 +677,12 @@
             android:id="@+id/text81"
             android:textSize="22sp"
             android:text="81"
-
             android:layout_row="10"
             android:layout_column="0" />
         <TextView
             android:id="@+id/text82"
             android:textSize="22sp"
             android:text="82"
-
-
             android:layout_row="10"
             android:layout_column="1" />
         <TextView
@@ -611,34 +691,28 @@
             android:textSize="22sp"
             android:layout_row="10"
             android:layout_column="3" />
-
         <TextView
             android:id="@+id/text84"
             android:text="84"
             android:textSize="22sp"
             android:layout_column="4"
             android:layout_row="10"/>
-
         <TextView
             android:id="@+id/text85"
             android:text="85"
             android:textSize="22sp"
             android:layout_column="5"
             android:layout_row="10"/>
-
         <TextView
             android:id="@+id/text86"
             android:textSize="22sp"
             android:text="86"
-
             android:layout_row="10"
             android:layout_column="6" />
         <TextView
             android:id="@+id/text87"
             android:textSize="22sp"
             android:text="87"
-
-
             android:layout_row="10"
             android:layout_column="7" />
         <TextView
@@ -653,39 +727,35 @@
             android:textSize="22sp"
             android:layout_column="9"
             android:layout_row="10"/>
-
         <TextView
             android:id="@+id/text90"
             android:text="90"
             android:textSize="22sp"
             android:layout_column="10"
             android:layout_row="10"/>
-
     </GridLayout>
     <Button
+        android:id="@+id/play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Button_Name"
-        android:id="@+id/play"
-        android:onClick="onClick"
         android:layout_below="@+id/gridLayout"
-        android:background="@drawable/btn_bg_round"
-        android:layout_marginLeft="10dp"
-        android:width="60dp"
-        android:height="60dp"
-        android:layout_alignRight="@+id/gridLayout"
         android:layout_alignEnd="@+id/gridLayout"
-        android:textColor="#0a0101"
+        android:layout_alignRight="@+id/gridLayout"
+        android:layout_alignBottom="@+id/Number"
+        android:layout_marginLeft="10dp"
+        android:width="40dp"
+        android:height="40dp"
+        android:background="@drawable/btn_bg_round"
         android:singleLine="true"
-        android:layout_alignBottom="@+id/Number" />
+        android:text="@string/Button_Name"
+        android:textColor="#0a0101" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/Number"
         android:text= "00"
-        android:textSize="50sp"
-
+        android:textSize="40sp"
         android:layout_marginRight="10dp"
         android:layout_below="@+id/gridLayout"
         android:layout_toLeftOf="@+id/play"
@@ -693,15 +763,18 @@
         android:visibility="visible" />
 
     <Button
+        android:id="@+id/btnUpdates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="UpDates"
-        android:id="@+id/btnUpdates"
-        android:onClick="showUpdates"
-        android:visibility="visible"
+        android:layout_alignLeft="@id/gridLayout"
+        android:layout_alignTop="@+id/Number"
+        android:layout_marginTop="2dp"
         android:background="@color/colorWhite"
+        android:onClick="showUpdates"
+        android:text="UpDates"
+        android:textColor="@color/colorblack"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:layout_alignTop="@+id/Number" />
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -711,44 +784,35 @@
         android:allowUndo="false"
         android:focusableInTouchMode="false"
         android:focusable="false"
-        android:textSize="30dp"
+        android:textSize="25sp"
         android:textColor="#f34a4a"
-        android:textAlignment="center"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="32dp"
-        android:layout_marginEnd="32dp" />
-
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
     <TextView
-        android:text=" 0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtBoard"
-        android:layout_alignBaseline="@+id/textView8"
-        android:layout_alignBottom="@+id/textView8"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:text="Board Count"
+        android:text="Board Count 0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView8"
         android:layout_below="@+id/play"
+        android:layout_alignTop="@id/textView10"
+        android:layout_alignRight="@id/gridLayout"
         android:layout_toRightOf="@+id/Number"
+        android:textColor="@color/colorblack"
         android:layout_toEndOf="@+id/Number" />
 
     <TextView
-        android:text="Last Number"
+        android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView10"
-        android:layout_below="@+id/Number"
-        android:layout_alignRight="@+id/Number"
-        android:layout_alignEnd="@+id/Number" />
+        android:layout_alignRight="@id/Number"
+        android:layout_alignTop="@id/txtShTkt"
+        android:textColor="@color/colorblack"
+        android:text="LstNum" />
 
-    <Button
+    <TextView
         android:text="New Game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -757,7 +821,45 @@
         android:layout_alignStart="@+id/gridLayout"
         android:id="@+id/btnNew"
         android:background="@color/colorWhite"
+        android:textColor="@color/colorblack"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="15dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/etEnterTkt"
+        android:maxLength="3"
+        android:width="50dp"
+        android:layout_alignBottom="@id/btnUpdates"
+        android:layout_below="@+id/gridLayout"
+        android:layout_toRightOf="@+id/btnUpdates"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/round_corner_txtview"
+        android:gravity="center"
+        android:visibility="invisible"/>
+    <TextView
+        android:text="Showtkt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showTicket"
+        android:id="@+id/txtShTkt"
+        android:layout_below="@+id/Number"
+        android:layout_alignTop="@id/btnNew"
+        android:layout_marginLeft="5dp"
+        android:layout_alignLeft="@+id/etEnterTkt"
+        android:textColor="@color/colorblack"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/txtShowHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView10"
+        android:layout_alignLeft="@id/Number"
+        android:textColor="@color/blue"
+        android:text="" />
 
 </RelativeLayout>

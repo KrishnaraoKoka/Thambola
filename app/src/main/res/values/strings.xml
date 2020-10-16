@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Thambola_Game</string>
+    <string name="app_name">Thambola</string>
     <string name="welcome">Welcome to the Game of Thambola</string>
     <string name="download">Down Load KGK Tickets</string>
     <string name="tickets">Go to Tickets</string>
@@ -17,6 +17,9 @@
     <string name="event_name">Event Name</string>
     <string name="winning_tkts">Winning Tkts</string>
     <string name="early_five">Early Five</string>
+    <string name="pair">Pair</string>
+    <string name="mango">Mango</string>
+    <string name="apple">Apple</string>
     <string name="corner">Corner four</string>
     <string name="star">Star Five</string>
     <string name="first_Line">First Line</string>
@@ -29,7 +32,7 @@
     <string name="Go_Main">Go to Play</string>
     <string name="Thambola_Options">Housie
     Options</string>
-    <string name="tks_from">.......Tkts.......\nFrom..........To</string>
+    <string name="tks_from">.""""""       - Tkts"""""""\nFrom.-        - To</string>
     <string name="select_events">Select events in the Game</string>
     <string name="jaldi_Five">Early Five</string>
     <string name="Corner_Four">Corner Four</string>

@@ -19,6 +19,7 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import static com.example.krishnarao.thambola_game.R.anim.slide_out_left;
+import static com.example.krishnarao.thambola_game.R.anim.slide_out_right;
 
 public class ThambolaOptions extends AppCompatActivity {
     static int KgkTkts[][][];
@@ -28,9 +29,9 @@ public class ThambolaOptions extends AppCompatActivity {
 
     RadioGroup rg;
     RadioButton rd1,rd2, rd3;
-    CheckBox chkEf, chkPr, chkCor, chkStr, chkFl, chkSl, chk, chkTl, chkFh, ch2Fh;
+    CheckBox chkEf, chkPr, chkCor, chkStr,chkMng, chkApl,chkFl, chkSl, chk, chkTl, chkFh, ch2Fh;
     public int frm, t,max;
-    public boolean jld, cr, str, fl, sl, tl, fh, fh2, otherTks, kgkTkts, ltoTkts;
+    public boolean jld, cr, str, fl, sl, tl, fh, fh2,pr,mng,apl, otherTks, kgkTkts, ltoTkts;
     public Bundle b = new Bundle();
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -47,11 +48,12 @@ public class ThambolaOptions extends AppCompatActivity {
          frTxt = (EditText) findViewById(R.id.txtFrom);
          toTxt = (EditText) findViewById(R.id.txtTo);
          enter = (Button) findViewById(R.id.enter);
-
-        chkEf = (CheckBox) findViewById(R.id.chkEf);
+         chkEf = (CheckBox) findViewById(R.id.chkEf);
          chkCor = (CheckBox) findViewById(R.id.chkCf);
          chkStr = (CheckBox) findViewById(R.id.chkSf);
-
+         chkPr=(CheckBox)findViewById(R.id.pair);
+         chkMng =(CheckBox)findViewById(R.id.mango);
+         chkApl=(CheckBox)findViewById(R.id.apple);
          chkFl = (CheckBox) findViewById(R.id.chkL1);
          chkSl = (CheckBox) findViewById(R.id.chkL2);
          chkTl = (CheckBox) findViewById(R.id.chkL3);
@@ -129,7 +131,7 @@ public class ThambolaOptions extends AppCompatActivity {
                     public void onClick(View view){
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, slide_out_left);
+                overridePendingTransition(R.anim.slide_in_left, slide_out_right);
 
             }
         });
@@ -172,18 +174,16 @@ public class ThambolaOptions extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), PlayGameActivity.class);
         intent.putExtras(b);
         startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        overridePendingTransition(R.anim.slide_in_right, slide_out_left);
     }
 
     private boolean playWithAppTkts() {
-        if (!chkEf.isChecked() && !chkCor.isChecked() && !chkStr.isChecked() && !chkFl.isChecked() && !chkSl.isChecked() && !chkTl.isChecked() && !chkFh.isChecked() && !ch2Fh.isChecked()) {
+        if (!chkEf.isChecked() && !chkCor.isChecked() && !chkStr.isChecked() && !chkFl.isChecked() && !chkSl.isChecked() && !chkTl.isChecked() && !chkFh.isChecked() &&
+                !ch2Fh.isChecked() && !chkPr.isChecked() && !chkMng.isChecked() && !chkApl.isChecked()){
             Toast.makeText(getApplicationContext(), "Please Select Events", Toast.LENGTH_LONG).show();
             return true;
         }
-
-
         String s, s1;
-
         s = frTxt.getText().toString();
         s1 = toTxt.getText().toString();
         if (s.equals("") || s1.equals("")) {
@@ -200,33 +200,42 @@ public class ThambolaOptions extends AppCompatActivity {
         if (frm > t)
             Toast.makeText(getApplicationContext(), "From Should not be More than To", Toast.LENGTH_LONG).show();
 
-        // sendArray();
-        // CGlobals g = new CGlobals();
+
+
         jld = (chkEf.isChecked());
         //g.setPr(chkPr.isChecked());
         cr = (chkCor.isChecked());
         str = (chkStr.isChecked());
+        pr = (chkPr.isChecked());
+        mng = (chkMng.isChecked());
+        apl =(chkApl.isChecked());
         fl = (chkFl.isChecked());
         sl = (chkSl.isChecked());
         tl = (chkTl.isChecked());
         fh = (chkFh.isChecked());
         fh2 = (ch2Fh.isChecked());
+        pr = (chkPr.isChecked());
+        mng = (chkMng.isChecked());
+        apl = (chkApl.isChecked());
 
-                /*
-                rd = (rd1.isChecked());
-                Bundle b = new Bundle();
-                */
+
         b.putInt("frm", frm);
         b.putInt("to", t);
         b.putBoolean("jaldi", jld);
         b.putBoolean("corner", cr);
         b.putBoolean("star", str);
+        b.putBoolean("pair",pr);
+        b.putBoolean("mango",mng);
+        b.putBoolean("apple",apl);
         b.putBoolean("fLine", fl);
         b.putBoolean("sLine", sl);
         b.putBoolean("tLine", tl);
         b.putBoolean("fHouse", fh);
         b.putBoolean("koka",kgkTkts);
         b.putBoolean("fHouse2", fh2);
+        b.putBoolean("pair",pr);
+        b.putBoolean("mango",mng);
+        b.putBoolean("apple",apl);
     //    b.putBoolean("Kgk", rd);
         b.putBoolean("ltoTkts",ltoTkts);
         b.putInt("Max",max);
