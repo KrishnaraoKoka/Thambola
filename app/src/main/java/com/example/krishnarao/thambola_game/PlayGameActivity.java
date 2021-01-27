@@ -49,7 +49,6 @@ public class PlayGameActivity extends AppCompatActivity {
     public int count;
     static String numCalls[];
     static int NumAdresses[][][];
-    static int MandACount [][];
     Button bUpdates;
     TextToSpeech tts;
     MediaPlayer mediaPlayer;
@@ -90,12 +89,7 @@ public class PlayGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_game);
-
-
         setVariables();
-
-
-
         bUpdates = (Button) findViewById(R.id.btnUpdates);
         Play = (Button) findViewById(R.id.play);
       //  tBoard = (TextView) findViewById(R.id.txtBoard);
@@ -190,7 +184,6 @@ public class PlayGameActivity extends AppCompatActivity {
         t89 = (TextView) findViewById(R.id.text89);
         t90 = (TextView) findViewById(R.id.text90);
         txtShowHnt =(TextView)findViewById(R.id.txtShowHint);
-
         etTktNo = (EditText) findViewById(R.id.etEnterTkt);
         tShowTkt =(TextView)findViewById(R.id.txtShTkt);
         tTxtView =(TextView)findViewById(R.id.textView8);
@@ -210,11 +203,8 @@ public class PlayGameActivity extends AppCompatActivity {
             @Override
             public void onInit(int status){
                int result= tts.setLanguage(Locale.US);
-
             }
         });
-
-
         o1 = new TextView[]{t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23,
                 t24, t25, t26, t27, t28, t29, t30, t31, t32, t33, t34, t35, t36, t37, t38, t39, t40, t41, t42, t43, t44, t45, t46, t47, t48, t49, t50,
                 t51, t52, t53, t54, t55, t56, t57, t58, t59, t60, t61, t62, t63, t64, t65, t66, t67, t68, t69, t70,
@@ -233,15 +223,12 @@ public class PlayGameActivity extends AppCompatActivity {
                 "Between the sticks", "Fat lady with a crutch", "Two fat ladies", "All but one", "End of the line"};
 
         Tkts = new int[600][3][5];
-        MandACount = new int [600][2];
 
         if (_otherTkts) {
-           
             bUpdates.setVisibility(View.INVISIBLE);
             tShowTkt.setVisibility(View.INVISIBLE);
             etTktNo.setVisibility(View.INVISIBLE);
         }
-
         colorTopTexBoxes();
         if (_kgkTkts) {
             Object[] kgkArray = (Object[]) getIntent().getExtras().getSerializable("kgkTks");
@@ -250,7 +237,6 @@ public class PlayGameActivity extends AppCompatActivity {
                 for (int i = 0; i < kgkArray.length; i++) {
                     KokaTkts[i] = (int[][]) kgkArray[i];
                 }
-
             }
             bUpdates.setVisibility(View.VISIBLE);
             tShowTkt.setVisibility(View.VISIBLE);
@@ -258,8 +244,6 @@ public class PlayGameActivity extends AppCompatActivity {
            topTextboxesShow();
             colorTopTexBoxes();
             copyKokaToTkts();
-
-
         }
         if (_lotoTkts) {
             Object[] lotoArray = (Object[]) getIntent().getExtras().getSerializable("lottoTkts");
@@ -276,21 +260,11 @@ public class PlayGameActivity extends AppCompatActivity {
             colorTopTexBoxes();
             copyLotoToTks();
         }
-        
-
-
-
         loadNumAdresses();
-        fillMandAarray();
-
-
         final Button play = (Button) findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
-
-
                 if (count == 90) {
                     Toast.makeText(getApplication(), "All Nos Over", Toast.LENGTH_LONG).show();
                     return;
@@ -315,14 +289,12 @@ public class PlayGameActivity extends AppCompatActivity {
                 mediaPlayer.start();
 */
                 vibrate();
-
-
                 if (_ef) jaldiCount();
                 if (_cor) cornerCount();
                 if (_str) starCount();
                 if(_pr)PairCount();
-                if(_mng)Mango();
-                if(_apl)Apple();
+                if(_mng)MangoCount();
+                if(_apl)AppleCount();
                 if (_l1) firstLineCount();
                 if (_l2) secondLineCount();
                 if (_l3) thirdLineCount();
@@ -340,8 +312,6 @@ public class PlayGameActivity extends AppCompatActivity {
             }
 
         });
-
-
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
@@ -377,9 +347,6 @@ public class PlayGameActivity extends AppCompatActivity {
             _kgkTkts = b.getBoolean("koka");
             _lotoTkts = b.getBoolean("ltoTkts");
             _max = b.getInt("Max");
-
-
-
         }
     }
 
@@ -416,7 +383,7 @@ public class PlayGameActivity extends AppCompatActivity {
     protected final void createDialog(final int id, String message, String title, final StringBuffer sb){
 
         final AlertDialog.Builder adb = new AlertDialog.Builder(this);
-        adb.setTitle(title);
+
         final AlertDialog.Builder builder = adb.setMessage(message);
 
         adb.setCancelable(false); //ds'nt allow program to run unless dialogue dismissed
@@ -437,6 +404,7 @@ public class PlayGameActivity extends AppCompatActivity {
 
                             Toast.makeText(getApplicationContext(), "All Events Over", Toast.LENGTH_LONG).show();
                         }
+
                         break;
 
                         // corner four
@@ -574,7 +542,8 @@ public class PlayGameActivity extends AppCompatActivity {
 
         lp.copyFrom(dialog.getWindow().getAttributes());
         lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = 500 ;
+  //      lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(lp);
         dialog.show();
         elert = new ToneGenerator(AudioManager.STREAM_ALARM,500);
@@ -599,25 +568,20 @@ public class PlayGameActivity extends AppCompatActivity {
         });
         builder1.setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-
             }
-
-
         });
         builder.show();
     }
     public void showUpdates(View view) {
-
         AlertDialog.Builder su = new AlertDialog.Builder(this);
         su.setTitle("Results Update");
         su.setMessage(_upDates);
         su.setPositiveButton("OK", null);
         AlertDialog builder = su.show();
         // su.show();
-
         builder.getWindow().setLayout(1000,1500);
-
-
+        builder.getWindow().setGravity(Gravity.TOP);
+        builder.getWindow().setBackgroundDrawableResource(R.drawable.round_corner_txtview);
     }
     public void showTicket(View view) {
         int No =0;
@@ -632,18 +596,16 @@ public class PlayGameActivity extends AppCompatActivity {
         StringBuilder sb =new StringBuilder();
         for(int i =0;i<3;i++){
             for(int j=0; j<5;j++){
+
                 if (Tkts[No-1][i][j]<0) {
 //                    String sr = "";
 //                    sr.equals(String.valueOf(Tkts[No-1][i][j]));
                     sb.append("(");
-                    sb.append(Tkts[No-1][i][j] * mark+" ");
-                    sb.append(")");
-
+                    sb.append(Tkts[No-1][i][j] * mark);
+                    sb.append(") ");
                 }
                 else{
-
                     sb.append(Tkts[No-1][i][j] +" ");
-
                 }
             }
             sb.append("\n");
@@ -653,13 +615,12 @@ public class PlayGameActivity extends AppCompatActivity {
         if(_lotoTkts)title="Lotto Ticket "+etTktNo.getText().toString();
         AlertDialog.Builder su = new AlertDialog.Builder(this);
         su.setTitle(title);
-
         su.setMessage(sb);
         su.setPositiveButton("OK", null);
         AlertDialog builder = su.show();
        // su.show();
 
-       builder.getWindow().setLayout(800,1000);
+       builder.getWindow().setLayout(850,950);
 
       //  builder.getWindow().setBackgroundDrawable(null);
         etTktNo.setText("");
@@ -746,26 +707,20 @@ public class PlayGameActivity extends AppCompatActivity {
 
     boolean hasNumInCorner(int tk) {
         boolean b = false;
-
         for (int i = 0; i < 3; i += 2)
             for (int j = 0; j < 5; j += 4)
                 if (Tkts[tk][i][j] == num * mark) b = true;
         return b;
-
-
     }
 
     boolean hasNumInLines(int tkt, int line) {
-
         boolean b = false;
         for (int i = 0; i < 5; i++)
             if (Tkts[tkt][line][i] == num * mark) b = true;
         return b;
-
     }
 
     public void jaldiCount() {
-
         StringBuffer sb = new StringBuffer();
         String ttl = "Hoseie Early Five";
         for (int i = _fr - 1; i < _to; i++) {
@@ -889,7 +844,6 @@ public class PlayGameActivity extends AppCompatActivity {
             }
         }
         if (sb.length() > 0) {
-
             setText("Tickets: " + sb + "Wins Second Line");
             createDialog(5, getText(), ttl, sb);
             secLine = sb.toString();
@@ -905,14 +859,11 @@ public class PlayGameActivity extends AppCompatActivity {
             for (int j = 0; j < 5; j++) {
                 if (Tkts[i][2][j] < 0) {
                     lc++;
-
                 }
-
             }
             if (lc == 5 && hasNumInLines(i, 2)) {
                 sb.append(Integer.toString(i + 1) + " ");
             }
-
         }
         if (sb.length() > 0) {
             setText("Tickets: " + sb + "Wins Third Line");
@@ -921,7 +872,7 @@ public class PlayGameActivity extends AppCompatActivity {
         }
     }
 
-    // select the ticket for the 1st fullhouse  event
+    // select the ticket for the 1st full house  event
     public void fullHouseCount() {
         StringBuffer sb = new StringBuffer();
         String ttl = "Hoseie First Full House";
@@ -944,7 +895,7 @@ public class PlayGameActivity extends AppCompatActivity {
         }
     }
 
-    // select the ticket for the 2nd FullHouse  event
+    // select the ticket for the 2nd Full House  event
     public void SecondfullHouseCount() {
         StringBuffer sb = new StringBuffer();
         String ttl = "Hoseie 2nd FullHouse ";
@@ -998,10 +949,10 @@ public class PlayGameActivity extends AppCompatActivity {
             int mngCount =0;
             for (int j = 0; j < 3; j++) {
                 for (int k = 0; k < 5; k++) {
-                    if (Tkts[i][j][k] < 0 && Tkts[i][j][k] >-46 ) mngCount++ ;
+                    if (Tkts[i][j][k] > 0 && Tkts[i][j][k] <46 ) mngCount++ ;
                 }
             }
-            if (mngCount == MandACount[i][0] && hasNumInMango(i)) {
+            if (mngCount == 0 && hasNumInMango(i)) {
 
                 sb.append(Integer.toString(i + 1) + " ");
             }
@@ -1021,10 +972,10 @@ public class PlayGameActivity extends AppCompatActivity {
             for (int j = 0; j < 3; j++) {
                 for (int k = 0; k < 5; k++) {
 
-                    if (Tkts[i][j][k] < 0 &&Tkts[i][j][k] < -45 ) aplCount++ ;
+                    if (Tkts[i][j][k] >45 ) aplCount++ ;
                 }
             }
-            if (aplCount == MandACount[i][1] && hasNumInApple(i)) {
+            if (aplCount == 0 && hasNumInApple(i)) {
                 sb.append(Integer.toString(i + 1) + " ");
             }
         }
@@ -1096,12 +1047,10 @@ public class PlayGameActivity extends AppCompatActivity {
     }
 
     public void copyKokaToTkts() {
-
         for (int i = 0; i < 300; i++) {
             for (int j = 0; j < 3; j++)
                 for (int k = 0; k < 5; k++)
                     Tkts[i][j][k] = KokaTkts[i][j][k];
-
         }
     }
 
@@ -1126,27 +1075,56 @@ public class PlayGameActivity extends AppCompatActivity {
             mediaPlayer=null;
         }
     }
-    public void fillMandAarray(){
 
-        for (int tk =0; tk<600;tk++){
-            int count = 0;
-            for( int j = 0;j<3; j++){
-                for (int k =0;k <5; k++){
-                    if(Tkts[tk][j][k] <46)count ++;
-                }
-            }
-            MandACount[tk][0]=count;
-            MandACount[tk][1]= 15-count ;
-
-        }
-
-    }
     public void vibrate(){
         Vibrator vibrator =(Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         long patern[]={0,100,100};
         vibrator.vibrate(patern,-1);
     }
+    public void MangoCount()
+    {
+        StringBuffer sb = new StringBuffer();
+        String ttl = "Housie Mango ";
+        for (int i = _fr - 1; i < _to; i++) {
+            int mngCount =0;
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 5; k++) {
+                    if (Tkts[i][j][k] > 0 && Tkts[i][j][k] <46 ) mngCount++ ;
+                }
+            }
+            if (mngCount == 0 && hasNumInMango(i)) {
 
+                sb.append(Integer.toString(i + 1) + " ");
+            }
+        }
+        if (sb.length() > 0) {
+            setText("Tickets: " + sb + "Wins Mango");
+            createDialog(10, getText(), ttl, sb);
+            mango = sb.toString();
+        }
+    }
+    public void AppleCount()
+    {
+        StringBuffer sb = new StringBuffer();
+        String ttl = "Housie Apple ";
+        for (int i = _fr - 1; i < _to; i++) {
+            int aplCount =0;
+            for (int j = 0; j < 3; j++) {
+                for (int k = 0; k < 5; k++) {
+
+                    if (Tkts[i][j][k] >45) aplCount++ ;
+                }
+            }
+            if (aplCount == 0 && hasNumInApple(i)) {
+                sb.append(Integer.toString(i + 1) + " ");
+            }
+        }
+        if (sb.length() > 0) {
+            setText("Tickets: " + sb + "Wins Apple");
+            createDialog(11, getText(), ttl, sb);
+            apple = sb.toString();
+        }
+    }
 
 
 }

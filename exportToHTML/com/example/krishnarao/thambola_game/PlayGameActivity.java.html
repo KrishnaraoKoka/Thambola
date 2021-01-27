@@ -1,0 +1,1176 @@
+<html>
+<head>
+<title>PlayGameActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+.s4 { color: #808080;}
+.s5 { color: #629755; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+PlayGameActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.krishnarao.thambola_game</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">android.app.AlertDialog</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.content.Context</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.content.DialogInterface</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.content.Intent</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.content.res.Resources</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.graphics.Typeface</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.media.AudioManager</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.media.MediaPlayer</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.media.ToneGenerator</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.net.Uri</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Build</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Vibrator</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.preference.DialogPreference</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.speech.tts.TextToSpeech</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.support.v7.app.AppCompatActivity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.os.Bundle</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.text.Spannable</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.text.SpannableString</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.text.style.StyleSpan</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.Gravity</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.View</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.view.WindowManager</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Button</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.EditText</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.TextView</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">android.widget.Toast</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.appindexing.Action</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.appindexing.AppIndex</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.appindexing.Thing</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">com.google.android.gms.common.api.GoogleApiClient</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.Locale</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Random</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">javax.xml.datatype.Duration</span><span class="s0">;</span>
+
+<span class="s0">import static </span><span class="s1">com.example.krishnarao.thambola_game.R.anim.slide_out_left</span><span class="s0">;</span>
+<span class="s0">import static </span><span class="s1">com.example.krishnarao.thambola_game.R.anim.slide_out_right</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">PlayGameActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity {</span>
+
+    <span class="s0">static int </span><span class="s1">arr[] = </span><span class="s0">new int</span><span class="s1">[</span><span class="s2">90</span><span class="s1">]</span><span class="s0">;</span>
+    <span class="s0">static </span><span class="s1">TextView[] o1</span><span class="s0">;</span>
+    <span class="s1">String s = </span><span class="s0">new </span><span class="s1">String(</span><span class="s3">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">StringBuilder _upDates = </span><span class="s0">new </span><span class="s1">StringBuilder()</span><span class="s0">;</span>
+    <span class="s0">public </span><span class="s1">Boolean talk = </span><span class="s0">true;</span>
+    <span class="s0">public int </span><span class="s1">count</span><span class="s0">;</span>
+    <span class="s0">static </span><span class="s1">String numCalls[]</span><span class="s0">;</span>
+    <span class="s0">static int </span><span class="s1">NumAdresses[][][]</span><span class="s0">;</span>
+    <span class="s0">static int </span><span class="s1">MandACount [][]</span><span class="s0">;</span>
+    <span class="s1">Button bUpdates</span><span class="s0">;</span>
+    <span class="s1">TextToSpeech tts</span><span class="s0">;</span>
+    <span class="s1">MediaPlayer mediaPlayer</span><span class="s0">;</span>
+    <span class="s1">Button Play </span><span class="s0">;</span>
+    <span class="s1">EditText etTktNo</span><span class="s0">;</span>
+    <span class="s1">TextView t1</span><span class="s0">, </span><span class="s1">t2</span><span class="s0">, </span><span class="s1">t3</span><span class="s0">, </span><span class="s1">t4</span><span class="s0">, </span><span class="s1">t5</span><span class="s0">, </span><span class="s1">t6</span><span class="s0">, </span><span class="s1">t7</span><span class="s0">, </span><span class="s1">t8</span><span class="s0">, </span><span class="s1">t9</span><span class="s0">, </span><span class="s1">t10</span><span class="s0">, </span><span class="s1">t11</span><span class="s0">, </span><span class="s1">t12</span><span class="s0">, </span><span class="s1">t13</span><span class="s0">, </span><span class="s1">t14</span><span class="s0">, </span><span class="s1">t15</span><span class="s0">, </span><span class="s1">t16</span><span class="s0">, </span><span class="s1">t17</span><span class="s0">, </span><span class="s1">t18</span><span class="s0">, </span><span class="s1">t19</span><span class="s0">, </span><span class="s1">t20</span><span class="s0">;</span>
+    <span class="s1">TextView t21</span><span class="s0">, </span><span class="s1">t22</span><span class="s0">, </span><span class="s1">t23</span><span class="s0">, </span><span class="s1">t24</span><span class="s0">, </span><span class="s1">t25</span><span class="s0">, </span><span class="s1">t26</span><span class="s0">, </span><span class="s1">t27</span><span class="s0">, </span><span class="s1">t28</span><span class="s0">, </span><span class="s1">t29</span><span class="s0">, </span><span class="s1">t30</span><span class="s0">, </span><span class="s1">t31</span><span class="s0">, </span><span class="s1">t32</span><span class="s0">, </span><span class="s1">t33</span><span class="s0">, </span><span class="s1">t34</span><span class="s0">, </span><span class="s1">t35</span><span class="s0">, </span><span class="s1">t36</span><span class="s0">, </span><span class="s1">t37</span><span class="s0">, </span><span class="s1">t38</span><span class="s0">, </span><span class="s1">t39</span><span class="s0">, </span><span class="s1">t40</span><span class="s0">;</span>
+    <span class="s1">TextView t41</span><span class="s0">, </span><span class="s1">t42</span><span class="s0">, </span><span class="s1">t43</span><span class="s0">, </span><span class="s1">t44</span><span class="s0">, </span><span class="s1">t45</span><span class="s0">, </span><span class="s1">t46</span><span class="s0">, </span><span class="s1">t47</span><span class="s0">, </span><span class="s1">t48</span><span class="s0">, </span><span class="s1">t49</span><span class="s0">, </span><span class="s1">t50</span><span class="s0">, </span><span class="s1">t51</span><span class="s0">, </span><span class="s1">t52</span><span class="s0">, </span><span class="s1">t53</span><span class="s0">, </span><span class="s1">t54</span><span class="s0">, </span><span class="s1">t55</span><span class="s0">, </span><span class="s1">t56</span><span class="s0">, </span><span class="s1">t57</span><span class="s0">, </span><span class="s1">t58</span><span class="s0">, </span><span class="s1">t59</span><span class="s0">, </span><span class="s1">t60</span><span class="s0">;</span>
+    <span class="s1">TextView t61</span><span class="s0">, </span><span class="s1">t62</span><span class="s0">, </span><span class="s1">t63</span><span class="s0">, </span><span class="s1">t64</span><span class="s0">, </span><span class="s1">t65</span><span class="s0">, </span><span class="s1">t66</span><span class="s0">, </span><span class="s1">t67</span><span class="s0">, </span><span class="s1">t68</span><span class="s0">, </span><span class="s1">t69</span><span class="s0">, </span><span class="s1">t70</span><span class="s0">, </span><span class="s1">t71</span><span class="s0">, </span><span class="s1">t72</span><span class="s0">, </span><span class="s1">t73</span><span class="s0">, </span><span class="s1">t74</span><span class="s0">, </span><span class="s1">t75</span><span class="s0">, </span><span class="s1">t76</span><span class="s0">, </span><span class="s1">t77</span><span class="s0">, </span><span class="s1">t78</span><span class="s0">, </span><span class="s1">t79</span><span class="s0">, </span><span class="s1">t80</span><span class="s0">;</span>
+    <span class="s1">TextView t81</span><span class="s0">, </span><span class="s1">t82</span><span class="s0">, </span><span class="s1">t83</span><span class="s0">, </span><span class="s1">t84</span><span class="s0">, </span><span class="s1">t85</span><span class="s0">, </span><span class="s1">t86</span><span class="s0">, </span><span class="s1">t87</span><span class="s0">, </span><span class="s1">t88</span><span class="s0">, </span><span class="s1">t89</span><span class="s0">, </span><span class="s1">t90</span><span class="s0">;</span>
+    <span class="s1">TextView tBoard</span><span class="s0">,</span><span class="s1">tTxtView</span><span class="s0">,</span><span class="s1">tShowTkt </span><span class="s0">,</span><span class="s1">txtShowHnt</span><span class="s0">,</span><span class="s1">newGame</span><span class="s0">;</span>
+    <span class="s1">TextView txtErl</span><span class="s0">,</span><span class="s1">txtPr</span><span class="s0">,</span><span class="s1">txtCor</span><span class="s0">,</span><span class="s1">txtStr</span><span class="s0">,</span><span class="s1">txtMng</span><span class="s0">,</span><span class="s1">txtApple</span><span class="s0">,</span><span class="s1">txt1stLn</span><span class="s0">,</span><span class="s1">txt2ndLn</span><span class="s0">,</span><span class="s1">txt3rdLn</span><span class="s0">,</span><span class="s1">txt1stFh</span><span class="s0">,</span><span class="s1">txt2ndFh </span><span class="s0">;</span>
+    <span class="s0">static int </span><span class="s1">num</span><span class="s0">;</span>
+
+    <span class="s0">private </span><span class="s1">GoogleApiClient client</span><span class="s0">;</span>
+
+
+    <span class="s0">public </span><span class="s1">String getText() {</span>
+        <span class="s0">return </span><span class="s1">text</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setText(String text) {</span>
+        <span class="s0">this</span><span class="s1">.text = text</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">String text</span><span class="s0">;</span>
+    <span class="s0">final int </span><span class="s1">mark = -</span><span class="s2">1</span><span class="s0">;</span>
+    <span class="s0">static int </span><span class="s1">_fr</span><span class="s0">, </span><span class="s1">_to</span><span class="s0">, </span><span class="s1">_max</span><span class="s0">;</span>
+    <span class="s1">String jaldi</span><span class="s0">, </span><span class="s1">corner</span><span class="s0">, </span><span class="s1">star</span><span class="s0">,</span><span class="s1">pair</span><span class="s0">,</span><span class="s1">mango</span><span class="s0">,</span><span class="s1">apple</span><span class="s0">, </span><span class="s1">fstLine</span><span class="s0">, </span><span class="s1">secLine</span><span class="s0">, </span><span class="s1">thrdLine</span><span class="s0">, </span><span class="s1">flHouse</span><span class="s0">, </span><span class="s1">flHouse2</span><span class="s0">;</span>
+    <span class="s0">static boolean </span><span class="s1">_ef</span><span class="s0">, </span><span class="s1">_cor</span><span class="s0">, </span><span class="s1">_str</span><span class="s0">,</span><span class="s1">_pr</span><span class="s0">,</span><span class="s1">_mng</span><span class="s0">,</span><span class="s1">_apl</span><span class="s0">, </span><span class="s1">_l1</span><span class="s0">, </span><span class="s1">_l2</span><span class="s0">, </span><span class="s1">_l3</span><span class="s0">, </span><span class="s1">_fh</span><span class="s0">, </span><span class="s1">_fh2</span><span class="s0">, </span><span class="s1">_otherTkts</span><span class="s0">, </span><span class="s1">_kgkTkts</span><span class="s0">, </span><span class="s1">_lotoTkts</span><span class="s0">;</span>
+    <span class="s0">static int </span><span class="s1">Tkts[][][]</span><span class="s0">;</span>
+    <span class="s0">static int </span><span class="s1">LottoTickets[][][]</span><span class="s0">;</span>
+    <span class="s0">static int </span><span class="s1">KokaTkts[][][]</span><span class="s0">;</span>
+    <span class="s1">ToneGenerator elert</span><span class="s0">,</span><span class="s1">beep</span><span class="s0">;</span>
+
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate(Bundle savedInstanceState) {</span>
+        <span class="s0">super</span><span class="s1">.onCreate(savedInstanceState)</span><span class="s0">;</span>
+        <span class="s1">setContentView(R.layout.activity_play_game)</span><span class="s0">;</span>
+
+
+        <span class="s1">setVariables()</span><span class="s0">;</span>
+
+
+
+        <span class="s1">bUpdates = (Button) findViewById(R.id.btnUpdates)</span><span class="s0">;</span>
+        <span class="s1">Play = (Button) findViewById(R.id.play)</span><span class="s0">;</span>
+      <span class="s4">//  tBoard = (TextView) findViewById(R.id.txtBoard);</span>
+        <span class="s1">t1 = (TextView) findViewById(R.id.text1)</span><span class="s0">;</span>
+        <span class="s1">t2 = (TextView) findViewById(R.id.text2)</span><span class="s0">;</span>
+        <span class="s1">t3 = (TextView) findViewById(R.id.text3)</span><span class="s0">;</span>
+        <span class="s1">t4 = (TextView) findViewById(R.id.text4)</span><span class="s0">;</span>
+        <span class="s1">t5 = (TextView) findViewById(R.id.text5)</span><span class="s0">;</span>
+        <span class="s1">t6 = (TextView) findViewById(R.id.text6)</span><span class="s0">;</span>
+        <span class="s1">t7 = (TextView) findViewById(R.id.text7)</span><span class="s0">;</span>
+        <span class="s1">t8 = (TextView) findViewById(R.id.text8)</span><span class="s0">;</span>
+        <span class="s1">t9 = (TextView) findViewById(R.id.text9)</span><span class="s0">;</span>
+        <span class="s1">t10 = (TextView) findViewById(R.id.text10)</span><span class="s0">;</span>
+        <span class="s1">t11 = (TextView) findViewById(R.id.text11)</span><span class="s0">;</span>
+        <span class="s1">t12 = (TextView) findViewById(R.id.text12)</span><span class="s0">;</span>
+        <span class="s1">t13 = (TextView) findViewById(R.id.text13)</span><span class="s0">;</span>
+        <span class="s1">t14 = (TextView) findViewById(R.id.text14)</span><span class="s0">;</span>
+        <span class="s1">t15 = (TextView) findViewById(R.id.text15)</span><span class="s0">;</span>
+        <span class="s1">t16 = (TextView) findViewById(R.id.text16)</span><span class="s0">;</span>
+        <span class="s1">t17 = (TextView) findViewById(R.id.text17)</span><span class="s0">;</span>
+        <span class="s1">t18 = (TextView) findViewById(R.id.text18)</span><span class="s0">;</span>
+        <span class="s1">t19 = (TextView) findViewById(R.id.text19)</span><span class="s0">;</span>
+        <span class="s1">t20 = (TextView) findViewById(R.id.text20)</span><span class="s0">;</span>
+        <span class="s1">t21 = (TextView) findViewById(R.id.text21)</span><span class="s0">;</span>
+        <span class="s1">t22 = (TextView) findViewById(R.id.text22)</span><span class="s0">;</span>
+        <span class="s1">t23 = (TextView) findViewById(R.id.text23)</span><span class="s0">;</span>
+        <span class="s1">t24 = (TextView) findViewById(R.id.text24)</span><span class="s0">;</span>
+        <span class="s1">t25 = (TextView) findViewById(R.id.text25)</span><span class="s0">;</span>
+        <span class="s1">t26 = (TextView) findViewById(R.id.text26)</span><span class="s0">;</span>
+        <span class="s1">t27 = (TextView) findViewById(R.id.text27)</span><span class="s0">;</span>
+        <span class="s1">t28 = (TextView) findViewById(R.id.text28)</span><span class="s0">;</span>
+        <span class="s1">t29 = (TextView) findViewById(R.id.text29)</span><span class="s0">;</span>
+        <span class="s1">t30 = (TextView) findViewById(R.id.text30)</span><span class="s0">;</span>
+        <span class="s1">t31 = (TextView) findViewById(R.id.text31)</span><span class="s0">;</span>
+        <span class="s1">t32 = (TextView) findViewById(R.id.text32)</span><span class="s0">;</span>
+        <span class="s1">t33 = (TextView) findViewById(R.id.text33)</span><span class="s0">;</span>
+        <span class="s1">t34 = (TextView) findViewById(R.id.text34)</span><span class="s0">;</span>
+        <span class="s1">t35 = (TextView) findViewById(R.id.text35)</span><span class="s0">;</span>
+        <span class="s1">t36 = (TextView) findViewById(R.id.text36)</span><span class="s0">;</span>
+        <span class="s1">t37 = (TextView) findViewById(R.id.text37)</span><span class="s0">;</span>
+        <span class="s1">t38 = (TextView) findViewById(R.id.text38)</span><span class="s0">;</span>
+        <span class="s1">t39 = (TextView) findViewById(R.id.text39)</span><span class="s0">;</span>
+        <span class="s1">t40 = (TextView) findViewById(R.id.text40)</span><span class="s0">;</span>
+        <span class="s1">t41 = (TextView) findViewById(R.id.text41)</span><span class="s0">;</span>
+        <span class="s1">t42 = (TextView) findViewById(R.id.text42)</span><span class="s0">;</span>
+        <span class="s1">t43 = (TextView) findViewById(R.id.text43)</span><span class="s0">;</span>
+        <span class="s1">t44 = (TextView) findViewById(R.id.text44)</span><span class="s0">;</span>
+        <span class="s1">t45 = (TextView) findViewById(R.id.text45)</span><span class="s0">;</span>
+        <span class="s1">t46 = (TextView) findViewById(R.id.text46)</span><span class="s0">;</span>
+        <span class="s1">t47 = (TextView) findViewById(R.id.text47)</span><span class="s0">;</span>
+        <span class="s1">t48 = (TextView) findViewById(R.id.text48)</span><span class="s0">;</span>
+        <span class="s1">t49 = (TextView) findViewById(R.id.text49)</span><span class="s0">;</span>
+        <span class="s1">t50 = (TextView) findViewById(R.id.text50)</span><span class="s0">;</span>
+        <span class="s1">t51 = (TextView) findViewById(R.id.text51)</span><span class="s0">;</span>
+        <span class="s1">t52 = (TextView) findViewById(R.id.text52)</span><span class="s0">;</span>
+        <span class="s1">t53 = (TextView) findViewById(R.id.text53)</span><span class="s0">;</span>
+        <span class="s1">t54 = (TextView) findViewById(R.id.text54)</span><span class="s0">;</span>
+        <span class="s1">t55 = (TextView) findViewById(R.id.text55)</span><span class="s0">;</span>
+        <span class="s1">t56 = (TextView) findViewById(R.id.text56)</span><span class="s0">;</span>
+        <span class="s1">t57 = (TextView) findViewById(R.id.text57)</span><span class="s0">;</span>
+        <span class="s1">t58 = (TextView) findViewById(R.id.text58)</span><span class="s0">;</span>
+        <span class="s1">t59 = (TextView) findViewById(R.id.text59)</span><span class="s0">;</span>
+        <span class="s1">t60 = (TextView) findViewById(R.id.text60)</span><span class="s0">;</span>
+        <span class="s1">t61 = (TextView) findViewById(R.id.text61)</span><span class="s0">;</span>
+        <span class="s1">t62 = (TextView) findViewById(R.id.text62)</span><span class="s0">;</span>
+        <span class="s1">t63 = (TextView) findViewById(R.id.text63)</span><span class="s0">;</span>
+        <span class="s1">t64 = (TextView) findViewById(R.id.text64)</span><span class="s0">;</span>
+        <span class="s1">t65 = (TextView) findViewById(R.id.text65)</span><span class="s0">;</span>
+        <span class="s1">t66 = (TextView) findViewById(R.id.text66)</span><span class="s0">;</span>
+        <span class="s1">t67 = (TextView) findViewById(R.id.text67)</span><span class="s0">;</span>
+        <span class="s1">t68 = (TextView) findViewById(R.id.text68)</span><span class="s0">;</span>
+        <span class="s1">t69 = (TextView) findViewById(R.id.text69)</span><span class="s0">;</span>
+        <span class="s1">t70 = (TextView) findViewById(R.id.text70)</span><span class="s0">;</span>
+        <span class="s1">t71 = (TextView) findViewById(R.id.text71)</span><span class="s0">;</span>
+        <span class="s1">t72 = (TextView) findViewById(R.id.text72)</span><span class="s0">;</span>
+        <span class="s1">t73 = (TextView) findViewById(R.id.text73)</span><span class="s0">;</span>
+        <span class="s1">t74 = (TextView) findViewById(R.id.text74)</span><span class="s0">;</span>
+        <span class="s1">t75 = (TextView) findViewById(R.id.text75)</span><span class="s0">;</span>
+        <span class="s1">t76 = (TextView) findViewById(R.id.text76)</span><span class="s0">;</span>
+        <span class="s1">t77 = (TextView) findViewById(R.id.text77)</span><span class="s0">;</span>
+        <span class="s1">t78 = (TextView) findViewById(R.id.text78)</span><span class="s0">;</span>
+        <span class="s1">t79 = (TextView) findViewById(R.id.text79)</span><span class="s0">;</span>
+        <span class="s1">t80 = (TextView) findViewById(R.id.text80)</span><span class="s0">;</span>
+        <span class="s1">t81 = (TextView) findViewById(R.id.text81)</span><span class="s0">;</span>
+        <span class="s1">t82 = (TextView) findViewById(R.id.text82)</span><span class="s0">;</span>
+        <span class="s1">t83 = (TextView) findViewById(R.id.text83)</span><span class="s0">;</span>
+        <span class="s1">t84 = (TextView) findViewById(R.id.text84)</span><span class="s0">;</span>
+        <span class="s1">t85 = (TextView) findViewById(R.id.text85)</span><span class="s0">;</span>
+        <span class="s1">t86 = (TextView) findViewById(R.id.text86)</span><span class="s0">;</span>
+        <span class="s1">t87 = (TextView) findViewById(R.id.text87)</span><span class="s0">;</span>
+        <span class="s1">t88 = (TextView) findViewById(R.id.text88)</span><span class="s0">;</span>
+        <span class="s1">t89 = (TextView) findViewById(R.id.text89)</span><span class="s0">;</span>
+        <span class="s1">t90 = (TextView) findViewById(R.id.text90)</span><span class="s0">;</span>
+        <span class="s1">txtShowHnt =(TextView)findViewById(R.id.txtShowHint)</span><span class="s0">;</span>
+
+        <span class="s1">etTktNo = (EditText) findViewById(R.id.etEnterTkt)</span><span class="s0">;</span>
+        <span class="s1">tShowTkt =(TextView)findViewById(R.id.txtShTkt)</span><span class="s0">;</span>
+        <span class="s1">tTxtView =(TextView)findViewById(R.id.textView8)</span><span class="s0">;</span>
+        <span class="s1">txtErl =(TextView)findViewById(R.id.textErly)</span><span class="s0">;</span>
+        <span class="s1">txtPr =(TextView)findViewById(R.id.textPair)</span><span class="s0">;</span>
+        <span class="s1">txtCor =(TextView)findViewById(R.id.textCorner)</span><span class="s0">;</span>
+        <span class="s1">txtStr =(TextView)findViewById(R.id.textStar)</span><span class="s0">;</span>
+        <span class="s1">txtMng =(TextView)findViewById(R.id.textMango)</span><span class="s0">;</span>
+        <span class="s1">txtApple =(TextView)findViewById(R.id.textApple)</span><span class="s0">;</span>
+        <span class="s1">txt1stLn =(TextView)findViewById(R.id.text1stLine)</span><span class="s0">;</span>
+        <span class="s1">txt2ndLn =(TextView)findViewById(R.id.text2ndLine)</span><span class="s0">;</span>
+        <span class="s1">txt3rdLn =(TextView)findViewById(R.id.text3rdLine)</span><span class="s0">;</span>
+        <span class="s1">txt1stFh =(TextView)findViewById(R.id.text1stFullHouse)</span><span class="s0">;</span>
+        <span class="s1">txt2ndFh =(TextView)findViewById(R.id.text2ndFullHouse)</span><span class="s0">;</span>
+        <span class="s1">Play = (Button) findViewById(R.id.play)</span><span class="s0">;</span>
+        <span class="s1">tts = </span><span class="s0">new </span><span class="s1">TextToSpeech(</span><span class="s0">this,new </span><span class="s1">TextToSpeech.OnInitListener(){</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onInit(</span><span class="s0">int </span><span class="s1">status){</span>
+               <span class="s0">int </span><span class="s1">result= tts.setLanguage(Locale.US)</span><span class="s0">;</span>
+
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+
+        <span class="s1">o1 = </span><span class="s0">new </span><span class="s1">TextView[]{t1</span><span class="s0">, </span><span class="s1">t2</span><span class="s0">, </span><span class="s1">t3</span><span class="s0">, </span><span class="s1">t4</span><span class="s0">, </span><span class="s1">t5</span><span class="s0">, </span><span class="s1">t6</span><span class="s0">, </span><span class="s1">t7</span><span class="s0">, </span><span class="s1">t8</span><span class="s0">, </span><span class="s1">t9</span><span class="s0">, </span><span class="s1">t10</span><span class="s0">, </span><span class="s1">t11</span><span class="s0">, </span><span class="s1">t12</span><span class="s0">, </span><span class="s1">t13</span><span class="s0">, </span><span class="s1">t14</span><span class="s0">, </span><span class="s1">t15</span><span class="s0">, </span><span class="s1">t16</span><span class="s0">, </span><span class="s1">t17</span><span class="s0">, </span><span class="s1">t18</span><span class="s0">, </span><span class="s1">t19</span><span class="s0">, </span><span class="s1">t20</span><span class="s0">, </span><span class="s1">t21</span><span class="s0">, </span><span class="s1">t22</span><span class="s0">, </span><span class="s1">t23</span><span class="s0">,</span>
+                <span class="s1">t24</span><span class="s0">, </span><span class="s1">t25</span><span class="s0">, </span><span class="s1">t26</span><span class="s0">, </span><span class="s1">t27</span><span class="s0">, </span><span class="s1">t28</span><span class="s0">, </span><span class="s1">t29</span><span class="s0">, </span><span class="s1">t30</span><span class="s0">, </span><span class="s1">t31</span><span class="s0">, </span><span class="s1">t32</span><span class="s0">, </span><span class="s1">t33</span><span class="s0">, </span><span class="s1">t34</span><span class="s0">, </span><span class="s1">t35</span><span class="s0">, </span><span class="s1">t36</span><span class="s0">, </span><span class="s1">t37</span><span class="s0">, </span><span class="s1">t38</span><span class="s0">, </span><span class="s1">t39</span><span class="s0">, </span><span class="s1">t40</span><span class="s0">, </span><span class="s1">t41</span><span class="s0">, </span><span class="s1">t42</span><span class="s0">, </span><span class="s1">t43</span><span class="s0">, </span><span class="s1">t44</span><span class="s0">, </span><span class="s1">t45</span><span class="s0">, </span><span class="s1">t46</span><span class="s0">, </span><span class="s1">t47</span><span class="s0">, </span><span class="s1">t48</span><span class="s0">, </span><span class="s1">t49</span><span class="s0">, </span><span class="s1">t50</span><span class="s0">,</span>
+                <span class="s1">t51</span><span class="s0">, </span><span class="s1">t52</span><span class="s0">, </span><span class="s1">t53</span><span class="s0">, </span><span class="s1">t54</span><span class="s0">, </span><span class="s1">t55</span><span class="s0">, </span><span class="s1">t56</span><span class="s0">, </span><span class="s1">t57</span><span class="s0">, </span><span class="s1">t58</span><span class="s0">, </span><span class="s1">t59</span><span class="s0">, </span><span class="s1">t60</span><span class="s0">, </span><span class="s1">t61</span><span class="s0">, </span><span class="s1">t62</span><span class="s0">, </span><span class="s1">t63</span><span class="s0">, </span><span class="s1">t64</span><span class="s0">, </span><span class="s1">t65</span><span class="s0">, </span><span class="s1">t66</span><span class="s0">, </span><span class="s1">t67</span><span class="s0">, </span><span class="s1">t68</span><span class="s0">, </span><span class="s1">t69</span><span class="s0">, </span><span class="s1">t70</span><span class="s0">,</span>
+                <span class="s1">t71</span><span class="s0">, </span><span class="s1">t72</span><span class="s0">, </span><span class="s1">t73</span><span class="s0">, </span><span class="s1">t74</span><span class="s0">, </span><span class="s1">t75</span><span class="s0">, </span><span class="s1">t76</span><span class="s0">, </span><span class="s1">t77</span><span class="s0">, </span><span class="s1">t78</span><span class="s0">, </span><span class="s1">t79</span><span class="s0">, </span><span class="s1">t80</span><span class="s0">, </span><span class="s1">t81</span><span class="s0">, </span><span class="s1">t82</span><span class="s0">, </span><span class="s1">t83</span><span class="s0">, </span><span class="s1">t84</span><span class="s0">, </span><span class="s1">t85</span><span class="s0">, </span><span class="s1">t86</span><span class="s0">, </span><span class="s1">t87</span><span class="s0">, </span><span class="s1">t88</span><span class="s0">, </span><span class="s1">t89</span><span class="s0">, </span><span class="s1">t90}</span><span class="s0">;</span>
+        <span class="s1">numCalls = </span><span class="s0">new </span><span class="s1">String[]{</span><span class="s3">&quot;&quot;</span><span class="s0">, </span><span class="s3">&quot;At the bigining&quot;</span><span class="s0">, </span><span class="s3">&quot;One little duck&quot;</span><span class="s0">, </span><span class="s3">&quot;Monkey on the tree&quot;</span><span class="s0">, </span><span class="s3">&quot;Shut the door&quot;</span><span class="s0">, </span><span class="s3">&quot;Jack's alive&quot;</span><span class="s0">, </span><span class="s3">&quot;Tom's Trick&quot;</span><span class="s0">, </span><span class="s3">&quot;One hockey stick&quot;</span><span class="s0">,</span>
+                <span class="s3">&quot;One fat lady&quot;</span><span class="s0">, </span><span class="s3">&quot;Dinner time &quot;</span><span class="s0">, </span><span class="s3">&quot;A big fat hen&quot;</span><span class="s0">, </span><span class="s3">&quot;Two Legs eleven&quot;</span><span class="s0">, </span><span class="s3">&quot;One dozen&quot;</span><span class="s0">, </span><span class="s3">&quot;Bakers dozen&quot;</span><span class="s0">, </span><span class="s3">&quot;Valentine’s day&quot;</span><span class="s0">, </span><span class="s3">&quot;Rugby team&quot;</span><span class="s0">,</span>
+                <span class="s3">&quot;Sweet sixteen&quot;</span><span class="s0">, </span><span class="s3">&quot;Dancing queen&quot;</span><span class="s0">, </span><span class="s3">&quot;Now you can vote&quot;</span><span class="s0">, </span><span class="s3">&quot;Goodbye teens&quot;</span><span class="s0">, </span><span class="s3">&quot;One score&quot;</span><span class="s0">, </span><span class="s3">&quot;Key of the door&quot;</span><span class="s0">, </span><span class="s3">&quot;Two little ducks&quot;</span><span class="s0">, </span><span class="s3">&quot;Thee and me&quot;</span><span class="s0">,</span>
+                <span class="s3">&quot;Two dozen&quot;</span><span class="s0">, </span><span class="s3">&quot;Duck and dive&quot;</span><span class="s0">, </span><span class="s3">&quot;Pick and mix&quot;</span><span class="s0">, </span><span class="s3">&quot;Gateway to heaven&quot;</span><span class="s0">, </span><span class="s3">&quot;Over weight&quot;</span><span class="s0">, </span><span class="s3">&quot;In your prime&quot;</span><span class="s0">, </span><span class="s3">&quot;Dirty Gertie&quot;</span><span class="s0">, </span><span class="s3">&quot;Get up and run&quot;</span><span class="s0">,</span>
+                <span class="s3">&quot;Buckle my Shoe&quot;</span><span class="s0">, </span><span class="s3">&quot;Two little fleas&quot;</span><span class="s0">, </span><span class="s3">&quot;Ask for more&quot;</span><span class="s0">, </span><span class="s3">&quot;Jump and jive&quot;</span><span class="s0">, </span><span class="s3">&quot;Three dozen&quot;</span><span class="s0">, </span><span class="s3">&quot;A flea in heaven&quot;</span><span class="s0">, </span><span class="s3">&quot;Christmas cake&quot;</span><span class="s0">, </span><span class="s3">&quot;All the steps&quot;</span><span class="s0">,</span>
+                <span class="s3">&quot;Two score&quot;</span><span class="s0">, </span><span class="s3">&quot;Time for fun&quot;</span><span class="s0">, </span><span class="s3">&quot;That famous street in Manhattan&quot;</span><span class="s0">, </span><span class="s3">&quot;Down on your knees&quot;</span><span class="s0">, </span><span class="s3">&quot;All the fours&quot;</span><span class="s0">, </span><span class="s3">&quot;Halfway there&quot;</span><span class="s0">, </span><span class="s3">&quot;Up to tricks&quot;</span><span class="s0">,</span>
+                <span class="s3">&quot;Four and seven&quot;</span><span class="s0">, </span><span class="s3">&quot;Four dozen&quot;</span><span class="s0">, </span><span class="s3">&quot;Rise and shine&quot;</span><span class="s0">, </span><span class="s3">&quot;Half a century&quot;</span><span class="s0">, </span><span class="s3">&quot;Tweak of the thumb&quot;</span><span class="s0">, </span><span class="s3">&quot;Weeks in a year&quot;</span><span class="s0">, </span><span class="s3">&quot;The joker&quot;</span><span class="s0">, </span><span class="s3">&quot;Clean the floor&quot;</span><span class="s0">,</span>
+                <span class="s3">&quot;All the fives&quot;</span><span class="s0">, </span><span class="s3">&quot;Was she worth it&quot;</span><span class="s0">, </span><span class="s3">&quot;All the beans&quot;</span><span class="s0">, </span><span class="s3">&quot;Make them wait&quot;</span><span class="s0">, </span><span class="s3">&quot;Brighton line&quot;</span><span class="s0">, </span><span class="s3">&quot;Five dozen&quot;</span><span class="s0">, </span><span class="s3">&quot;Bakers bun&quot;</span><span class="s0">, </span><span class="s3">&quot;Tickety boo&quot;</span><span class="s0">,</span>
+                <span class="s3">&quot;Tickle me&quot;</span><span class="s0">, </span><span class="s3">&quot;The Beatles number&quot;</span><span class="s0">, </span><span class="s3">&quot;Old age pension&quot;</span><span class="s0">, </span><span class="s3">&quot;All the sixes&quot;</span><span class="s0">, </span><span class="s3">&quot;Made in heaven&quot;</span><span class="s0">, </span><span class="s3">&quot;Check your weight&quot;</span><span class="s0">, </span><span class="s3">&quot;Either way up&quot;</span><span class="s0">,</span>
+                <span class="s3">&quot;Three score and ten&quot;</span><span class="s0">, </span><span class="s3">&quot;Lucky one&quot;</span><span class="s0">, </span><span class="s3">&quot;Lucky two&quot;</span><span class="s0">, </span><span class="s3">&quot;Lucky three&quot;</span><span class="s0">, </span><span class="s3">&quot;Lucky four&quot;</span><span class="s0">, </span><span class="s3">&quot;Lucky five&quot;</span><span class="s0">, </span><span class="s3">&quot;Lucky six&quot;</span><span class="s0">, </span><span class="s3">&quot;Lucky seven&quot;</span><span class="s0">, </span><span class="s3">&quot;Lucky eight&quot;</span><span class="s0">,</span>
+                <span class="s3">&quot;Lucky nine&quot;</span><span class="s0">, </span><span class="s3">&quot;Gandhi's breakfast&quot;</span><span class="s0">, </span><span class="s3">&quot;Stop and run&quot;</span><span class="s0">, </span><span class="s3">&quot;Fat lady with a duck&quot;</span><span class="s0">, </span><span class="s3">&quot;Fat lady with a flea&quot;</span><span class="s0">, </span><span class="s3">&quot;Seven dozen&quot;</span><span class="s0">, </span><span class="s3">&quot;Staying alive&quot;</span><span class="s0">,</span>
+                <span class="s3">&quot;Between the sticks&quot;</span><span class="s0">, </span><span class="s3">&quot;Fat lady with a crutch&quot;</span><span class="s0">, </span><span class="s3">&quot;Two fat ladies&quot;</span><span class="s0">, </span><span class="s3">&quot;All but one&quot;</span><span class="s0">, </span><span class="s3">&quot;End of the line&quot;</span><span class="s1">}</span><span class="s0">;</span>
+
+        <span class="s1">Tkts = </span><span class="s0">new int</span><span class="s1">[</span><span class="s2">600</span><span class="s1">][</span><span class="s2">3</span><span class="s1">][</span><span class="s2">5</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s1">MandACount = </span><span class="s0">new int </span><span class="s1">[</span><span class="s2">600</span><span class="s1">][</span><span class="s2">2</span><span class="s1">]</span><span class="s0">;</span>
+
+        <span class="s0">if </span><span class="s1">(_otherTkts) {</span>
+           
+            <span class="s1">bUpdates.setVisibility(View.INVISIBLE)</span><span class="s0">;</span>
+            <span class="s1">tShowTkt.setVisibility(View.INVISIBLE)</span><span class="s0">;</span>
+            <span class="s1">etTktNo.setVisibility(View.INVISIBLE)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+        <span class="s1">colorTopTexBoxes()</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(_kgkTkts) {</span>
+            <span class="s1">Object[] kgkArray = (Object[]) getIntent().getExtras().getSerializable(</span><span class="s3">&quot;kgkTks&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(kgkArray != </span><span class="s0">null</span><span class="s1">) {</span>
+                <span class="s1">KokaTkts = </span><span class="s0">new int</span><span class="s1">[kgkArray.length][][]</span><span class="s0">;</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; kgkArray.length</span><span class="s0">; </span><span class="s1">i++) {</span>
+                    <span class="s1">KokaTkts[i] = (</span><span class="s0">int</span><span class="s1">[][]) kgkArray[i]</span><span class="s0">;</span>
+                <span class="s1">}</span>
+
+            <span class="s1">}</span>
+            <span class="s1">bUpdates.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+            <span class="s1">tShowTkt.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+            <span class="s1">etTktNo.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+           <span class="s1">topTextboxesShow()</span><span class="s0">;</span>
+            <span class="s1">colorTopTexBoxes()</span><span class="s0">;</span>
+            <span class="s1">copyKokaToTkts()</span><span class="s0">;</span>
+
+
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(_lotoTkts) {</span>
+            <span class="s1">Object[] lotoArray = (Object[]) getIntent().getExtras().getSerializable(</span><span class="s3">&quot;lottoTkts&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(lotoArray != </span><span class="s0">null</span><span class="s1">) {</span>
+                <span class="s1">LottoTickets = </span><span class="s0">new int</span><span class="s1">[lotoArray.length][][]</span><span class="s0">;</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; lotoArray.length</span><span class="s0">; </span><span class="s1">i++) {</span>
+                    <span class="s1">LottoTickets[i] = (</span><span class="s0">int</span><span class="s1">[][]) lotoArray[i]</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s1">bUpdates.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+            <span class="s1">tShowTkt.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+            <span class="s1">etTktNo.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+            <span class="s1">topTextboxesShow()</span><span class="s0">;</span>
+            <span class="s1">colorTopTexBoxes()</span><span class="s0">;</span>
+            <span class="s1">copyLotoToTks()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        
+
+
+
+        <span class="s1">loadNumAdresses()</span><span class="s0">;</span>
+        <span class="s1">fillMandAarray()</span><span class="s0">;</span>
+
+
+        <span class="s0">final </span><span class="s1">Button play = (Button) findViewById(R.id.play)</span><span class="s0">;</span>
+        <span class="s1">play.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onClick(View view) {</span>
+
+
+                <span class="s0">if </span><span class="s1">(count == </span><span class="s2">90</span><span class="s1">) {</span>
+                    <span class="s1">Toast.makeText(getApplication()</span><span class="s0">, </span><span class="s3">&quot;All Nos Over&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                    <span class="s0">return;</span>
+                <span class="s1">}</span>
+
+                <span class="s1">TextView Number = (TextView) findViewById(R.id.Number)</span><span class="s0">;</span>
+                <span class="s1">Integer num = </span><span class="s0">new </span><span class="s1">PlayGameActivity().createRandomNumber()</span><span class="s0">;</span>
+                <span class="s4">//tts.speak(numCalls[num]+num,TextToSpeech.QUEUE_FLUSH,null);</span>
+               <span class="s1">markNewArray(num)</span><span class="s0">;</span>
+                <span class="s1">Number.setText(Integer.toString(num))</span><span class="s0">;</span>
+                <span class="s1">count++</span><span class="s0">;</span>
+                <span class="s1">tTxtView.setText(</span><span class="s3">&quot;Board Count &quot; </span><span class="s1">+Integer.toString(count))</span><span class="s0">;</span>
+               <span class="s4">// tBoard.setText(Integer.toString(count));</span>
+                <span class="s1">txtShowHnt.setText(numCalls[num])</span><span class="s0">;</span>
+<span class="s4">//               Toast toast = Toast.makeText(getApplicationContext(),numCalls[num], Toast.LENGTH_SHORT);</span>
+<span class="s4">//                toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);</span>
+<span class="s4">//                toast.show();</span>
+                <span class="s1">o1[num - </span><span class="s2">1</span><span class="s1">].setBackgroundResource(R.drawable.rounded_txtview)</span><span class="s0">;</span>
+<span class="s4">/* 
+               mediaPlayerStop(); 
+                mediaPlayer = MediaPlayer.create(PlayGameActivity.this,R.raw.beep); 
+                mediaPlayer.start(); 
+*/</span>
+                <span class="s1">vibrate()</span><span class="s0">;</span>
+
+
+                <span class="s0">if </span><span class="s1">(_ef) jaldiCount()</span><span class="s0">;</span>
+                <span class="s0">if </span><span class="s1">(_cor) cornerCount()</span><span class="s0">;</span>
+                <span class="s0">if </span><span class="s1">(_str) starCount()</span><span class="s0">;</span>
+                <span class="s0">if</span><span class="s1">(_pr)PairCount()</span><span class="s0">;</span>
+                <span class="s0">if</span><span class="s1">(_mng)Mango()</span><span class="s0">;</span>
+                <span class="s0">if</span><span class="s1">(_apl)Apple()</span><span class="s0">;</span>
+                <span class="s0">if </span><span class="s1">(_l1) firstLineCount()</span><span class="s0">;</span>
+                <span class="s0">if </span><span class="s1">(_l2) secondLineCount()</span><span class="s0">;</span>
+                <span class="s0">if </span><span class="s1">(_l3) thirdLineCount()</span><span class="s0">;</span>
+                <span class="s0">if </span><span class="s1">(!_fh &amp;&amp; _fh2) SecondfullHouseCount()</span><span class="s0">;</span>
+                <span class="s0">if </span><span class="s1">(_fh) fullHouseCount()</span><span class="s0">;</span>
+
+            <span class="s1">}</span>
+
+        <span class="s1">})</span><span class="s0">;</span>
+        <span class="s1">newGame = (TextView) findViewById(R.id.btnNew)</span><span class="s0">;</span>
+        <span class="s1">newGame.setOnClickListener(</span><span class="s0">new </span><span class="s1">View.OnClickListener() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public void </span><span class="s1">onClick(View v) {</span>
+            <span class="s1">newGameDialog()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+        <span class="s1">})</span><span class="s0">;</span>
+
+
+        <span class="s1">client = </span><span class="s0">new </span><span class="s1">GoogleApiClient.Builder(</span><span class="s0">this</span><span class="s1">).addApi(AppIndex.API).build()</span><span class="s0">;</span>
+        <span class="s1">getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">onPause(){</span>
+        <span class="s0">if</span><span class="s1">(tts !=</span><span class="s0">null</span><span class="s1">){</span>
+            <span class="s1">tts.stop()</span><span class="s0">;</span>
+            <span class="s1">tts.shutdown()</span><span class="s0">;</span>
+            <span class="s0">super</span><span class="s1">.onPause()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setVariables() {</span>
+        <span class="s1">Intent in = </span><span class="s0">this</span><span class="s1">.getIntent()</span><span class="s0">;</span>
+        <span class="s4">// in.getBooleanExtra(&quot;kgkr&quot;,_rd);</span>
+
+        <span class="s1">Bundle b = in.getExtras()</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(b != </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s1">_fr = b.getInt(</span><span class="s3">&quot;frm&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_to = b.getInt(</span><span class="s3">&quot;to&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_ef = b.getBoolean(</span><span class="s3">&quot;jaldi&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_cor = b.getBoolean(</span><span class="s3">&quot;corner&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_str = b.getBoolean(</span><span class="s3">&quot;star&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_pr =b.getBoolean(</span><span class="s3">&quot;pair&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_apl = b.getBoolean(</span><span class="s3">&quot;apple&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_mng = b.getBoolean(</span><span class="s3">&quot;mango&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_l1 = b.getBoolean(</span><span class="s3">&quot;fLine&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_l2 = b.getBoolean(</span><span class="s3">&quot;sLine&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_l3 = b.getBoolean(</span><span class="s3">&quot;tLine&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_fh = b.getBoolean(</span><span class="s3">&quot;fHouse&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_fh2 = b.getBoolean(</span><span class="s3">&quot;fHouse2&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_otherTkts = b.getBoolean(</span><span class="s3">&quot;Kgk&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_kgkTkts = b.getBoolean(</span><span class="s3">&quot;koka&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_lotoTkts = b.getBoolean(</span><span class="s3">&quot;ltoTkts&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">_max = b.getInt(</span><span class="s3">&quot;Max&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+
+
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">loadNumAdresses() {</span>
+        <span class="s1">NumAdresses = </span><span class="s0">new int</span><span class="s1">[</span><span class="s2">91</span><span class="s1">][</span><span class="s2">100</span><span class="s1">][</span><span class="s2">3</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">digit</span><span class="s0">, </span><span class="s1">inst</span><span class="s0">;</span>
+        <span class="s1">inst = </span><span class="s2">0</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">tkt = </span><span class="s2">0</span><span class="s0">;</span><span class="s1">tkt &lt;_max</span><span class="s0">; </span><span class="s1">tkt++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">row = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">row &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">row++) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">col = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">col &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">col++) {</span>
+                    <span class="s1">digit = Tkts[tkt][row][col]</span><span class="s0">;</span>
+                    <span class="s0">switch </span><span class="s1">(NumAdresses[digit][inst][</span><span class="s2">0</span><span class="s1">] = tkt) {</span>
+                    <span class="s1">}</span>
+                    <span class="s1">NumAdresses[digit][inst][</span><span class="s2">1</span><span class="s1">] = row</span><span class="s0">;</span>
+                    <span class="s1">NumAdresses[digit][inst][</span><span class="s2">2</span><span class="s1">] = col</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">((tkt + </span><span class="s2">1</span><span class="s1">) % </span><span class="s2">6 </span><span class="s1">== </span><span class="s2">0</span><span class="s1">) inst++</span><span class="s0">;</span>
+
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public int </span><span class="s1">createRandomNumber() {</span>
+        <span class="s0">final int </span><span class="s1">mark = -</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s1">Random rm = </span><span class="s0">new </span><span class="s1">Random()</span><span class="s0">;</span>
+        <span class="s0">do </span><span class="s1">{</span>
+            <span class="s1">num = rm.nextInt(</span><span class="s2">90</span><span class="s1">) + </span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">while </span><span class="s1">(arr[num - </span><span class="s2">1</span><span class="s1">] == mark)</span><span class="s0">;</span>
+        <span class="s1">count++</span><span class="s0">;</span>
+        <span class="s1">arr[num - </span><span class="s2">1</span><span class="s1">] = mark</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">num</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">protected final void </span><span class="s1">createDialog(</span><span class="s0">final int </span><span class="s1">id</span><span class="s0">, </span><span class="s1">String message</span><span class="s0">, </span><span class="s1">String title</span><span class="s0">, final </span><span class="s1">StringBuffer sb){</span>
+
+        <span class="s0">final </span><span class="s1">AlertDialog.Builder adb = </span><span class="s0">new </span><span class="s1">AlertDialog.Builder(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s0">final </span><span class="s1">AlertDialog.Builder builder = adb.setMessage(message)</span><span class="s0">;</span>
+
+        <span class="s1">adb.setCancelable(</span><span class="s0">false</span><span class="s1">)</span><span class="s0">; </span><span class="s4">//ds'nt allow program to run unless dialogue dismissed</span>
+        <span class="s1">adb.setPositiveButton(</span><span class="s3">&quot;Responded OK&quot;</span><span class="s0">, new </span><span class="s1">DialogInterface.OnClickListener() {</span>
+
+            <span class="s0">public void </span><span class="s1">onClick(DialogInterface dialog</span><span class="s0">, int </span><span class="s1">which) {</span>
+
+                <span class="s4">//gen.setEnabled(true);</span>
+                <span class="s0">switch </span><span class="s1">(id) {</span>
+                    <span class="s0">case </span><span class="s1">(</span><span class="s2">1</span><span class="s1">):</span>
+                        <span class="s1">_ef = </span><span class="s0">false;</span>
+
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;Early Five            :&quot;</span><span class="s1">+sb)</span><span class="s0">;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">txtErl.setBackgroundColor(getResources().getColor(R.color.red))</span><span class="s0">;</span>
+
+                        <span class="s0">if </span><span class="s1">(!_cor &amp;&amp; !_str &amp;&amp; !_l1 &amp;&amp; !_pr &amp;&amp; !_mng &amp;&amp; !_apl  &amp;&amp; !_l2 &amp;&amp; !_l3 &amp;&amp; !_fh &amp;&amp; !_fh2 ) {</span>
+
+                            <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;All Events Over&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+
+                        <span class="s0">break;</span>
+
+                        <span class="s4">// corner four</span>
+                    <span class="s0">case </span><span class="s1">(</span><span class="s2">2</span><span class="s1">): {</span>
+                        <span class="s1">_cor = </span><span class="s0">false;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;Corner Four       :&quot;</span><span class="s1">+sb)</span><span class="s0">;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">txtCor.setBackgroundColor(getResources().getColor(R.color.red))</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(!_ef &amp;&amp; !_str &amp;&amp; !_l1 &amp;&amp; !_pr &amp;&amp; !_mng &amp;&amp; !_apl  &amp;&amp; !_l2 &amp;&amp; !_l3 &amp;&amp; !_fh &amp;&amp; !_fh2 ) {</span>
+
+                            <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;All Events Over&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+
+                        <span class="s0">break;</span>
+                        <span class="s4">//star five</span>
+                    <span class="s1">}</span>
+                    <span class="s0">case </span><span class="s1">(</span><span class="s2">3</span><span class="s1">): {</span>
+                        <span class="s1">_str = </span><span class="s0">false;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;Star Five             :&quot;</span><span class="s1">+ sb)</span><span class="s0">;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">txtStr.setBackgroundColor(getResources().getColor(R.color.red))</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(!_cor &amp;&amp; !_ef &amp;&amp; !_l1 &amp;&amp; !_pr &amp;&amp; !_mng &amp;&amp; !_apl  &amp;&amp; !_l2 &amp;&amp; !_l3 &amp;&amp; !_fh &amp;&amp; !_fh2 ) {</span>
+                            <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;All Events Over&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">break;</span>
+                        <span class="s4">//first line</span>
+                    <span class="s1">}</span>
+                    <span class="s0">case </span><span class="s1">(</span><span class="s2">4</span><span class="s1">): {</span>
+                        <span class="s1">_l1 = </span><span class="s0">false;</span>
+                        <span class="s1">_upDates.append( </span><span class="s3">&quot;First Line            :&quot;</span><span class="s1">+sb)</span><span class="s0">;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">txt1stLn.setBackgroundColor(getResources().getColor(R.color.red))</span><span class="s0">;</span>
+
+                        <span class="s0">if </span><span class="s1">(!_cor &amp;&amp; !_str &amp;&amp; !_ef &amp;&amp; !_pr &amp;&amp; !_mng &amp;&amp; !_apl  &amp;&amp; !_l2 &amp;&amp; !_l3 &amp;&amp; !_fh &amp;&amp; !_fh2 ) {</span>
+                            <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;All Events Over&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+
+                        <span class="s0">break;</span>
+                        <span class="s4">//2nd line</span>
+                    <span class="s1">}</span>
+                    <span class="s0">case </span><span class="s1">(</span><span class="s2">5</span><span class="s1">): {</span>
+                        <span class="s1">_l2 = </span><span class="s0">false;</span>
+                        <span class="s1">_upDates.append( </span><span class="s3">&quot;Second Line       :&quot;</span><span class="s1">+sb)</span><span class="s0">;</span>
+
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">txt2ndLn.setBackgroundColor(getResources().getColor(R.color.red))</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(!_cor &amp;&amp; !_str &amp;&amp; !_l1 &amp;&amp; !_pr &amp;&amp; !_mng &amp;&amp; !_apl  &amp;&amp; !_ef &amp;&amp; !_l3 &amp;&amp; !_fh &amp;&amp; !_fh2 ){</span>
+                            <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;All Events Over&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">break;</span>
+                        <span class="s4">//third line</span>
+                    <span class="s1">}</span>
+                    <span class="s0">case </span><span class="s1">(</span><span class="s2">6</span><span class="s1">): {</span>
+                        <span class="s1">_l3 = </span><span class="s0">false;</span>
+                        <span class="s1">_upDates.append( </span><span class="s3">&quot;Third Line          :&quot;</span><span class="s1">+ sb)</span><span class="s0">;</span>
+
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">txt3rdLn.setBackgroundColor(getResources().getColor(R.color.red))</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(!_cor &amp;&amp; !_str &amp;&amp; !_l1 &amp;&amp; !_pr &amp;&amp; !_mng &amp;&amp; !_apl  &amp;&amp; !_l2 &amp;&amp; !_ef &amp;&amp; !_fh &amp;&amp; !_fh2 ) {</span>
+                            <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;All Events Over&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">break;</span>
+                        <span class="s4">//full house</span>
+                    <span class="s1">}</span>
+                    <span class="s0">case </span><span class="s1">(</span><span class="s2">7</span><span class="s1">): {</span>
+                        <span class="s1">_fh = </span><span class="s0">false;</span>
+                        <span class="s1">_upDates.append( </span><span class="s3">&quot;Full House         :&quot; </span><span class="s1">+sb)</span><span class="s0">;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">txt1stFh.setBackgroundColor(getResources().getColor(R.color.red))</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(!_cor &amp;&amp; !_str &amp;&amp; !_l1 &amp;&amp; !_pr &amp;&amp; !_mng &amp;&amp; !_apl  &amp;&amp; !_l2 &amp;&amp; !_l3 &amp;&amp; !_ef &amp;&amp; !_fh2 ) {</span>
+                            <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;All Events Over&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">break;</span>
+                        <span class="s4">//2ndfull house</span>
+                    <span class="s1">}</span>
+                    <span class="s0">case </span><span class="s1">(</span><span class="s2">8</span><span class="s1">): {</span>
+                        <span class="s1">_fh2 = </span><span class="s0">false;</span>
+                        <span class="s1">_upDates.append( </span><span class="s3">&quot;2nd Full House :&quot;</span><span class="s1">+ sb)</span><span class="s0">;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">txt2ndFh.setBackgroundColor(getResources().getColor(R.color.red))</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(!_ef &amp;&amp; !_cor &amp;&amp; !_str &amp;&amp; !_mng&amp;&amp; !_apl &amp;&amp; !_pr</span>
+                                <span class="s1">&amp;&amp; !_l1 &amp;&amp; !_l2 &amp;&amp; !_l3 &amp;&amp; !_fh &amp;&amp; !_fh2) {</span>
+                            <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;All Events Over&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">break;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">case</span><span class="s1">(</span><span class="s2">9</span><span class="s1">): {</span>
+                        <span class="s1">_pr = </span><span class="s0">false;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;Pair                     :&quot; </span><span class="s1">+ sb)</span><span class="s0">;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">txtPr.setBackgroundColor(getResources().getColor(R.color.red))</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(!_ef &amp;&amp; !_cor &amp;&amp; !_str &amp;&amp; !_mng &amp;&amp; !_apl &amp;&amp; !_l1 &amp;&amp; !_l2 &amp;&amp; !_l3 &amp;&amp; !_fh &amp;&amp; !_fh2) {</span>
+                            <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;All Events Over&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">break;</span>
+                    <span class="s1">}</span>
+
+                    <span class="s0">case </span><span class="s1">(</span><span class="s2">10</span><span class="s1">): {</span>
+                        <span class="s1">_mng = </span><span class="s0">false;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;Mango                :&quot; </span><span class="s1">+ sb)</span><span class="s0">;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">txtMng.setBackgroundColor(getResources().getColor(R.color.red))</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(!_ef &amp;&amp; !_cor &amp;&amp; !_str &amp;&amp; !_pr &amp;&amp; !_apl &amp;&amp; !_l1 &amp;&amp; !_l2 &amp;&amp; !_l3 &amp;&amp; !_fh &amp;&amp; !_fh2) {</span>
+                            <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;All Events Over&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">break;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">case </span><span class="s1">(</span><span class="s2">11</span><span class="s1">): {</span>
+                        <span class="s1">_apl = </span><span class="s0">false;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;Apple                 :&quot; </span><span class="s1">+ sb)</span><span class="s0">;</span>
+                        <span class="s1">_upDates.append(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                        <span class="s1">txtApple.setBackgroundColor(getResources().getColor(R.color.red))</span><span class="s0">;</span>
+                        <span class="s0">if </span><span class="s1">(!_ef &amp;&amp; !_cor &amp;&amp; !_str &amp;&amp; !_pr &amp;&amp; !_mng &amp;&amp; !_l1 &amp;&amp; !_l2 &amp;&amp; !_l3 &amp;&amp; !_fh &amp;&amp; !_fh2) {</span>
+                            <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;All Events Over&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+                        <span class="s1">}</span>
+                        <span class="s0">break;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+
+        <span class="s1">adb.setNegativeButton(</span><span class="s3">&quot;No Response! Cancel&quot;</span><span class="s0">, new </span><span class="s1">DialogInterface.OnClickListener() {</span>
+            <span class="s0">public void </span><span class="s1">onClick(DialogInterface dialog</span><span class="s0">, int </span><span class="s1">which) {</span>
+                <span class="s4">//      gen.setEnabled(true);</span>
+
+
+                <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;Tkts: &quot; </span><span class="s1">+ sb + </span><span class="s3">&quot;No Response Canceled&quot;</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+
+
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+        <span class="s1">AlertDialog dialog = adb.create()</span><span class="s0">;</span>
+
+        <span class="s1">WindowManager.LayoutParams lp = </span><span class="s0">new </span><span class="s1">WindowManager.LayoutParams()</span><span class="s0">;</span>
+
+        <span class="s1">lp.copyFrom(dialog.getWindow().getAttributes())</span><span class="s0">;</span>
+        <span class="s1">lp.width = WindowManager.LayoutParams.WRAP_CONTENT</span><span class="s0">;</span>
+        <span class="s1">lp.height = WindowManager.LayoutParams.WRAP_CONTENT</span><span class="s0">;</span>
+        <span class="s1">dialog.getWindow().setAttributes(lp)</span><span class="s0">;</span>
+        <span class="s1">dialog.show()</span><span class="s0">;</span>
+        <span class="s1">elert = </span><span class="s0">new </span><span class="s1">ToneGenerator(AudioManager.STREAM_ALARM</span><span class="s0">,</span><span class="s2">500</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">elert.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT)</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">protected final void </span><span class="s1">newGameDialog() {</span>
+        <span class="s1">AlertDialog.Builder builder = </span><span class="s0">new </span><span class="s1">AlertDialog.Builder(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">final </span><span class="s1">AlertDialog.Builder builder1 = builder</span><span class="s0">;</span>
+        <span class="s1">builder1.setTitle(</span><span class="s3">&quot;New Game&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">builder1.setMessage(</span><span class="s3">&quot;Are You Sure! You want to Quit this Game?&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">builder1.setIcon(android.R.drawable.ic_dialog_alert)</span><span class="s0">;</span>
+        <span class="s1">builder1.setPositiveButton(</span><span class="s3">&quot;Yes&quot;</span><span class="s0">, new </span><span class="s1">DialogInterface.OnClickListener() {</span>
+            <span class="s0">public void </span><span class="s1">onClick(DialogInterface dialog</span><span class="s0">, int </span><span class="s1">which) {</span>
+                <span class="s1">Intent in = </span><span class="s0">new </span><span class="s1">Intent(PlayGameActivity.</span><span class="s0">this, </span><span class="s1">MainActivity.</span><span class="s0">class</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">startActivity(in)</span><span class="s0">;</span>
+                <span class="s1">overridePendingTransition(R.anim.slide_in_left</span><span class="s0">, </span><span class="s1">slide_out_right)</span><span class="s0">;</span>
+                <span class="s1">finish()</span><span class="s0">;</span>
+
+            <span class="s1">}</span>
+        <span class="s1">})</span><span class="s0">;</span>
+        <span class="s1">builder1.setNegativeButton(</span><span class="s3">&quot;No&quot;</span><span class="s0">, new </span><span class="s1">DialogInterface.OnClickListener() {</span>
+            <span class="s0">public void </span><span class="s1">onClick(DialogInterface dialog</span><span class="s0">, int </span><span class="s1">which) {</span>
+
+            <span class="s1">}</span>
+
+
+        <span class="s1">})</span><span class="s0">;</span>
+        <span class="s1">builder.show()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">showUpdates(View view) {</span>
+
+        <span class="s1">AlertDialog.Builder su = </span><span class="s0">new </span><span class="s1">AlertDialog.Builder(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">su.setTitle(</span><span class="s3">&quot;Results Update&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">su.setMessage(_upDates)</span><span class="s0">;</span>
+        <span class="s1">su.setPositiveButton(</span><span class="s3">&quot;OK&quot;</span><span class="s0">, null</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">AlertDialog builder = su.show()</span><span class="s0">;</span>
+        <span class="s4">// su.show();</span>
+        <span class="s1">builder.getWindow().setLayout(</span><span class="s2">1000</span><span class="s0">,</span><span class="s2">1500</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">builder.getWindow().setGravity(Gravity.TOP)</span><span class="s0">;</span>
+        <span class="s1">builder.getWindow().setBackgroundDrawableResource(R.drawable.round_corner_txtview)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">showTicket(View view) {</span>
+        <span class="s0">int </span><span class="s1">No =</span><span class="s2">0</span><span class="s0">;</span>
+        <span class="s1">No = Integer.parseInt(etTktNo.getText().toString())</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(etTktNo.getText().toString()==</span><span class="s3">&quot;&quot;</span><span class="s1">) {</span>
+            <span class="s1">Toast.makeText(</span><span class="s0">this, </span><span class="s3">&quot;Pl enter No from )&quot; </span><span class="s1">+ _max</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+             <span class="s0">return ;</span><span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(No &lt; </span><span class="s2">1 </span><span class="s1">|| No &gt; _max) {</span>
+            <span class="s1">Toast.makeText(getApplicationContext()</span><span class="s0">, </span><span class="s3">&quot;Enter Tkt Nos From 1 to &quot;</span><span class="s1">+ _max</span><span class="s0">, </span><span class="s1">Toast.LENGTH_LONG).show()</span><span class="s0">;</span>
+            <span class="s0">return ;</span>
+        <span class="s1">}</span>
+        <span class="s1">StringBuilder sb =</span><span class="s0">new </span><span class="s1">StringBuilder()</span><span class="s0">;</span>
+        <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">i =</span><span class="s2">0</span><span class="s0">;</span><span class="s1">i&lt;</span><span class="s2">3</span><span class="s0">;</span><span class="s1">i++){</span>
+            <span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">j=</span><span class="s2">0</span><span class="s0">; </span><span class="s1">j&lt;</span><span class="s2">5</span><span class="s0">;</span><span class="s1">j++){</span>
+
+                <span class="s0">if </span><span class="s1">(Tkts[No-</span><span class="s2">1</span><span class="s1">][i][j]&lt;</span><span class="s2">0</span><span class="s1">) {</span>
+<span class="s4">//                    String sr = &quot;&quot;;</span>
+<span class="s4">//                    sr.equals(String.valueOf(Tkts[No-1][i][j]));</span>
+                    <span class="s1">sb.append(</span><span class="s3">&quot;(&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s1">sb.append(Tkts[No-</span><span class="s2">1</span><span class="s1">][i][j] * mark)</span><span class="s0">;</span>
+
+                    <span class="s1">sb.append(</span><span class="s3">&quot;) &quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+                <span class="s1">}</span>
+                <span class="s0">else</span><span class="s1">{</span>
+
+                    <span class="s1">sb.append(Tkts[No-</span><span class="s2">1</span><span class="s1">][i][j] +</span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s1">sb.append(</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">String title = </span><span class="s3">&quot;&quot;</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(_kgkTkts)title=</span><span class="s3">&quot;KGK Ticket &quot;</span><span class="s1">+etTktNo.getText().toString()</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(_lotoTkts)title=</span><span class="s3">&quot;Lotto Ticket &quot;</span><span class="s1">+etTktNo.getText().toString()</span><span class="s0">;</span>
+        <span class="s1">AlertDialog.Builder su = </span><span class="s0">new </span><span class="s1">AlertDialog.Builder(</span><span class="s0">this</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">su.setTitle(title)</span><span class="s0">;</span>
+
+        <span class="s1">su.setMessage(sb)</span><span class="s0">;</span>
+        <span class="s1">su.setPositiveButton(</span><span class="s3">&quot;OK&quot;</span><span class="s0">, null</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">AlertDialog builder = su.show()</span><span class="s0">;</span>
+       <span class="s4">// su.show();</span>
+
+       <span class="s1">builder.getWindow().setLayout(</span><span class="s2">850</span><span class="s0">,</span><span class="s2">950</span><span class="s1">)</span><span class="s0">;</span>
+
+      <span class="s4">//  builder.getWindow().setBackgroundDrawable(null);</span>
+        <span class="s1">etTktNo.setText(</span><span class="s3">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">topTextboxesShow(){</span>
+        <span class="s1">txtErl.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+        <span class="s1">txtPr.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+        <span class="s1">txtCor.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+        <span class="s1">txtStr.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+        <span class="s1">txtMng.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+        <span class="s1">txtApple.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+        <span class="s1">txt1stLn.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+        <span class="s1">txt2ndLn.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+        <span class="s1">txt3rdLn.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+        <span class="s1">txt1stFh.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+        <span class="s1">txt2ndFh.setVisibility(View.VISIBLE)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">colorTopTexBoxes() {</span>
+        <span class="s0">if</span><span class="s1">(!_ef)txtErl.setBackgroundColor(getResources().getColor(R.color.blue))</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(!_pr)txtPr.setBackgroundColor(getResources().getColor(R.color.blue))</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(!_cor)txtCor.setBackgroundColor(getResources().getColor(R.color.blue))</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(!_str)txtStr.setBackgroundColor(getResources().getColor(R.color.blue))</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(!_mng)txtMng.setBackgroundColor(getResources().getColor(R.color.blue))</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(!_apl)txtApple.setBackgroundColor(getResources().getColor(R.color.blue))</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(!_l1)txt1stLn.setBackgroundColor(getResources().getColor(R.color.blue))</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(!_l2)txt2ndLn.setBackgroundColor(getResources().getColor(R.color.blue))</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(!_l3)txt3rdLn.setBackgroundColor(getResources().getColor(R.color.blue))</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(!_fh)txt1stFh.setBackgroundColor(getResources().getColor(R.color.blue))</span><span class="s0">;</span>
+        <span class="s0">if</span><span class="s1">(!_fh2)txt2ndFh.setBackgroundColor(getResources().getColor(R.color.blue))</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">boolean </span><span class="s1">hasNumInStar(</span><span class="s0">int </span><span class="s1">tk) {</span>
+        <span class="s0">boolean </span><span class="s1">b = </span><span class="s0">false;</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">i += </span><span class="s2">2</span><span class="s1">) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">j += </span><span class="s2">4</span><span class="s1">) {</span>
+                <span class="s0">if </span><span class="s1">(Tkts[tk][i][j] == num * mark) b = </span><span class="s0">true;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(Tkts[tk][</span><span class="s2">1</span><span class="s1">][</span><span class="s2">2</span><span class="s1">] == num * mark) b = </span><span class="s0">true;</span>
+        <span class="s0">return </span><span class="s1">b</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">boolean </span><span class="s1">hasNumInTicket(</span><span class="s0">int </span><span class="s1">tk) {</span>
+        <span class="s0">boolean </span><span class="s1">b = </span><span class="s0">false;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">i++)</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">j++)</span>
+                <span class="s0">if </span><span class="s1">(Tkts[tk][i][j] == num * mark) b = </span><span class="s0">true;</span>
+        <span class="s0">return </span><span class="s1">b</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">boolean </span><span class="s1">hasNumInMango(</span><span class="s0">int </span><span class="s1">tk){</span>
+        <span class="s0">boolean </span><span class="s1">b = </span><span class="s0">false;</span>
+        <span class="s0">if</span><span class="s1">(num &lt;</span><span class="s2">46</span><span class="s1">) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">i++)</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">j++) {</span>
+                    <span class="s0">if </span><span class="s1">(Tkts[tk][i][j] == num * mark) {</span>
+                        <span class="s1">b = </span><span class="s0">true;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">b</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">boolean </span><span class="s1">hasNumInApple(</span><span class="s0">int </span><span class="s1">tk) {</span>
+        <span class="s0">boolean </span><span class="s1">b = </span><span class="s0">false;</span>
+        <span class="s0">if </span><span class="s1">(num &gt; </span><span class="s2">45</span><span class="s1">) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">i++) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">j++) {</span>
+                    <span class="s0">if </span><span class="s1">(Tkts[tk][i][j] == num * mark) b = </span><span class="s0">true;</span>
+                <span class="s1">}</span>
+              <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">b</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">boolean </span><span class="s1">isPair(</span><span class="s0">int </span><span class="s1">n1</span><span class="s0">,int </span><span class="s1">n2 ){</span>
+        <span class="s0">boolean </span><span class="s1">pair = </span><span class="s0">false;</span>
+        <span class="s0">if</span><span class="s1">(n1*mark == num || n2*mark==num) {</span>
+            <span class="s0">int </span><span class="s1">a = (n1 * mark) / </span><span class="s2">10</span><span class="s0">;</span>
+            <span class="s0">int </span><span class="s1">b = (n2 * mark) / </span><span class="s2">10</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(b - a == </span><span class="s2">1</span><span class="s1">) pair = </span><span class="s0">true;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">pair</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">boolean </span><span class="s1">hasNumInCorner(</span><span class="s0">int </span><span class="s1">tk) {</span>
+        <span class="s0">boolean </span><span class="s1">b = </span><span class="s0">false;</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">i += </span><span class="s2">2</span><span class="s1">)</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">j += </span><span class="s2">4</span><span class="s1">)</span>
+                <span class="s0">if </span><span class="s1">(Tkts[tk][i][j] == num * mark) b = </span><span class="s0">true;</span>
+        <span class="s0">return </span><span class="s1">b</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+
+    <span class="s0">boolean </span><span class="s1">hasNumInLines(</span><span class="s0">int </span><span class="s1">tkt</span><span class="s0">, int </span><span class="s1">line) {</span>
+
+        <span class="s0">boolean </span><span class="s1">b = </span><span class="s0">false;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">i++)</span>
+            <span class="s0">if </span><span class="s1">(Tkts[tkt][line][i] == num * mark) b = </span><span class="s0">true;</span>
+        <span class="s0">return </span><span class="s1">b</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">jaldiCount() {</span>
+
+        <span class="s1">StringBuffer sb = </span><span class="s0">new </span><span class="s1">StringBuffer()</span><span class="s0">;</span>
+        <span class="s1">String ttl = </span><span class="s3">&quot;Hoseie Early Five&quot;</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = _fr - </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt; _to</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">jc = </span><span class="s2">0</span><span class="s0">; </span><span class="s4">//count</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">k &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">k++) {</span>
+                    <span class="s0">if </span><span class="s1">(</span><span class="s2">0 </span><span class="s1">&gt; Tkts[i][j][k]) {</span>
+                        <span class="s1">jc++</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(jc == </span><span class="s2">5 </span><span class="s1">&amp;&amp; hasNumInTicket(i)) {</span>
+                <span class="s1">sb.append(Integer.toString(i + </span><span class="s2">1</span><span class="s1">) + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(sb.length() &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s1">setText(</span><span class="s3">&quot;Tickets: &quot; </span><span class="s1">+ sb + </span><span class="s3">&quot;Wins Early Five&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">createDialog(</span><span class="s2">1</span><span class="s0">, </span><span class="s1">getText()</span><span class="s0">, </span><span class="s1">ttl</span><span class="s0">, </span><span class="s1">sb)</span><span class="s0">;</span>
+            <span class="s1">jaldi = sb.toString()</span><span class="s0">;</span>
+
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">cornerCount() {</span>
+        <span class="s1">StringBuffer sb = </span><span class="s0">new </span><span class="s1">StringBuffer()</span><span class="s0">;</span>
+        <span class="s1">String ttl = </span><span class="s3">&quot;Hoseie Corner Four&quot;</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = _fr - </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt; _to</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">jc = </span><span class="s2">0</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">j += </span><span class="s2">2</span><span class="s1">) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">k &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">k += </span><span class="s2">4</span><span class="s1">) {</span>
+                    <span class="s0">if </span><span class="s1">(</span><span class="s2">0 </span><span class="s1">&gt; Tkts[i][j][k]) {</span>
+                        <span class="s1">jc++</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(jc == </span><span class="s2">4 </span><span class="s1">&amp;&amp; hasNumInCorner(i)) sb.append(Integer.toString(i + </span><span class="s2">1</span><span class="s1">) + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(sb.length() &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s1">setText(</span><span class="s3">&quot;Tickets: &quot; </span><span class="s1">+ sb + </span><span class="s3">&quot;Wins Corner Four&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s4">//  Toast.makeText(getApplicationContext(), &quot;Tkts: &quot; + sb1 + &quot; Wins Corner Four&quot;, Toast.LENGTH_LONG).show();</span>
+            <span class="s4">// _notify();</span>
+            <span class="s1">createDialog(</span><span class="s2">2</span><span class="s0">, </span><span class="s1">getText()</span><span class="s0">, </span><span class="s1">ttl</span><span class="s0">, </span><span class="s1">sb)</span><span class="s0">;</span>
+            <span class="s1">corner = sb.toString()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s4">// select the ticket for the star  event</span>
+    <span class="s0">public void </span><span class="s1">starCount() {</span>
+        <span class="s1">StringBuffer sb = </span><span class="s0">new </span><span class="s1">StringBuffer()</span><span class="s0">;</span>
+        <span class="s1">String ttl = </span><span class="s3">&quot;Hoseie Star Five &quot;</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = _fr - </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt; _to</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">sc = </span><span class="s2">0</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">j += </span><span class="s2">2</span><span class="s1">) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">k &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">k += </span><span class="s2">4</span><span class="s1">) {</span>
+                    <span class="s0">if </span><span class="s1">(Tkts[i][j][k] &lt; </span><span class="s2">0</span><span class="s1">) {</span>
+                        <span class="s1">sc++</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+
+            <span class="s0">if </span><span class="s1">(sc == </span><span class="s2">4 </span><span class="s1">&amp;&amp; Tkts[i][</span><span class="s2">1</span><span class="s1">][</span><span class="s2">2</span><span class="s1">] &lt; </span><span class="s2">0 </span><span class="s1">&amp;&amp; hasNumInStar(i)) {</span>
+                <span class="s1">sb.append(Integer.toString(i + </span><span class="s2">1</span><span class="s1">) + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(sb.length() &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s4">// Toast.makeText(getApplicationContext(), &quot;Tkts: &quot; + sb + &quot; Wins Star Five&quot;, Toast.LENGTH_LONG).show();</span>
+            <span class="s4">//_str = false;</span>
+            <span class="s4">//Log.i(&quot;Krishna&quot;, jaldi );</span>
+
+            <span class="s1">setText(</span><span class="s3">&quot;Tickets: &quot; </span><span class="s1">+ sb + </span><span class="s3">&quot;Wins Star Five&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">createDialog(</span><span class="s2">3</span><span class="s0">, </span><span class="s1">getText()</span><span class="s0">, </span><span class="s1">ttl</span><span class="s0">, </span><span class="s1">sb)</span><span class="s0">;</span>
+            <span class="s1">star = sb.toString()</span><span class="s0">;</span>
+           <span class="s4">/* _upDates.append(&quot;Star Five:  &quot;); 
+            _upDates.append(sb); 
+            _upDates.append(&quot;\n&quot;);*/</span>
+
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s4">// select the ticket for the first line  event</span>
+    <span class="s0">public void </span><span class="s1">firstLineCount() {</span>
+        <span class="s1">StringBuffer sb = </span><span class="s0">new </span><span class="s1">StringBuffer()</span><span class="s0">;</span>
+        <span class="s1">String ttl = </span><span class="s3">&quot;Hoseie First Line &quot;</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = _fr - </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt; _to</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">lc = </span><span class="s2">0</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">if </span><span class="s1">(Tkts[i][</span><span class="s2">0</span><span class="s1">][j] &lt; </span><span class="s2">0</span><span class="s1">) {</span>
+                    <span class="s1">lc++</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(lc == </span><span class="s2">5 </span><span class="s1">&amp;&amp; hasNumInLines(i</span><span class="s0">, </span><span class="s2">0</span><span class="s1">)) {</span>
+                <span class="s1">sb.append(Integer.toString(i + </span><span class="s2">1</span><span class="s1">) + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(sb.length() &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s4">// Toast.makeText(getApplicationContext(), &quot;Tkts: &quot; + msg + &quot; Wins First Line&quot;, Toast.LENGTH_LONG).show();</span>
+            <span class="s4">// _l1 = false;</span>
+
+            <span class="s1">setText(</span><span class="s3">&quot;Tickets: &quot; </span><span class="s1">+ sb + </span><span class="s3">&quot; Wins First Line&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">createDialog(</span><span class="s2">4</span><span class="s0">, </span><span class="s1">getText()</span><span class="s0">, </span><span class="s1">ttl</span><span class="s0">, </span><span class="s1">sb)</span><span class="s0">;</span>
+            <span class="s1">fstLine = sb.toString()</span><span class="s0">;</span>
+          <span class="s4">/*  _upDates.append(&quot;First Line:  &quot;); 
+            _upDates.append(sb); 
+            _upDates.append(&quot;\n&quot;);*/</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s4">// select the ticket for the second line  event</span>
+    <span class="s0">public void </span><span class="s1">secondLineCount() {</span>
+        <span class="s1">StringBuffer sb = </span><span class="s0">new </span><span class="s1">StringBuffer()</span><span class="s0">;</span>
+        <span class="s1">String ttl = </span><span class="s3">&quot;Hoseie Second Line &quot;</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = _fr</span><span class="s0">; </span><span class="s1">i &lt; _to</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">lc = </span><span class="s2">0</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">if </span><span class="s1">(Tkts[i][</span><span class="s2">1</span><span class="s1">][j] &lt; </span><span class="s2">0</span><span class="s1">) {</span>
+                    <span class="s1">lc++</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(lc == </span><span class="s2">5 </span><span class="s1">&amp;&amp; hasNumInLines(i</span><span class="s0">, </span><span class="s2">1</span><span class="s1">)) {</span>
+                <span class="s1">sb.append(Integer.toString(i + </span><span class="s2">1</span><span class="s1">) + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(sb.length() &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+
+            <span class="s1">setText(</span><span class="s3">&quot;Tickets: &quot; </span><span class="s1">+ sb + </span><span class="s3">&quot;Wins Second Line&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">createDialog(</span><span class="s2">5</span><span class="s0">, </span><span class="s1">getText()</span><span class="s0">, </span><span class="s1">ttl</span><span class="s0">, </span><span class="s1">sb)</span><span class="s0">;</span>
+            <span class="s1">secLine = sb.toString()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s4">// select the ticket for the 3rd line  event</span>
+    <span class="s0">public void </span><span class="s1">thirdLineCount() {</span>
+        <span class="s1">StringBuffer sb = </span><span class="s0">new </span><span class="s1">StringBuffer()</span><span class="s0">;</span>
+        <span class="s1">String ttl = </span><span class="s3">&quot;Hoseie Third Line &quot;</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = _fr - </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt; _to</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">lc = </span><span class="s2">0</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">if </span><span class="s1">(Tkts[i][</span><span class="s2">2</span><span class="s1">][j] &lt; </span><span class="s2">0</span><span class="s1">) {</span>
+                    <span class="s1">lc++</span><span class="s0">;</span>
+
+                <span class="s1">}</span>
+
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(lc == </span><span class="s2">5 </span><span class="s1">&amp;&amp; hasNumInLines(i</span><span class="s0">, </span><span class="s2">2</span><span class="s1">)) {</span>
+                <span class="s1">sb.append(Integer.toString(i + </span><span class="s2">1</span><span class="s1">) + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(sb.length() &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s1">setText(</span><span class="s3">&quot;Tickets: &quot; </span><span class="s1">+ sb + </span><span class="s3">&quot;Wins Third Line&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">createDialog(</span><span class="s2">6</span><span class="s0">, </span><span class="s1">getText()</span><span class="s0">, </span><span class="s1">ttl</span><span class="s0">, </span><span class="s1">sb)</span><span class="s0">;</span>
+            <span class="s1">thrdLine = sb.toString()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s4">// select the ticket for the 1st fullhouse  event</span>
+    <span class="s0">public void </span><span class="s1">fullHouseCount() {</span>
+        <span class="s1">StringBuffer sb = </span><span class="s0">new </span><span class="s1">StringBuffer()</span><span class="s0">;</span>
+        <span class="s1">String ttl = </span><span class="s3">&quot;Hoseie First Full House&quot;</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = _fr - </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt; _to</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">jc = </span><span class="s2">0</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">k &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">k++) {</span>
+                    <span class="s0">if </span><span class="s1">(Tkts[i][j][k] &lt; </span><span class="s2">0</span><span class="s1">) {</span>
+                        <span class="s1">jc++</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(jc == </span><span class="s2">15 </span><span class="s1">&amp;&amp; hasNumInTicket(i)) sb.append(Integer.toString(i + </span><span class="s2">1</span><span class="s1">) + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(sb.length() &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s1">setText(</span><span class="s3">&quot;Tickets: &quot; </span><span class="s1">+ sb + </span><span class="s3">&quot;Wins Full house&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">createDialog(</span><span class="s2">7</span><span class="s0">, </span><span class="s1">getText()</span><span class="s0">, </span><span class="s1">ttl</span><span class="s0">, </span><span class="s1">sb)</span><span class="s0">;</span>
+            <span class="s1">flHouse = sb.toString()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s4">// select the ticket for the 2nd FullHouse  event</span>
+    <span class="s0">public void </span><span class="s1">SecondfullHouseCount() {</span>
+        <span class="s1">StringBuffer sb = </span><span class="s0">new </span><span class="s1">StringBuffer()</span><span class="s0">;</span>
+        <span class="s1">String ttl = </span><span class="s3">&quot;Hoseie 2nd FullHouse &quot;</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = _fr - </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt; _to</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">jc = </span><span class="s2">0</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">k &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">k++) {</span>
+                    <span class="s0">if </span><span class="s1">(Tkts[i][j][k] &lt; </span><span class="s2">0</span><span class="s1">) {</span>
+                        <span class="s1">jc++</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(jc == </span><span class="s2">15 </span><span class="s1">&amp;&amp; hasNumInTicket(i)) sb.append(Integer.toString(i + </span><span class="s2">1</span><span class="s1">) + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(sb.length() &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s1">setText(</span><span class="s3">&quot;Tickets: &quot; </span><span class="s1">+ sb + </span><span class="s3">&quot;Wins Second full house&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">createDialog(</span><span class="s2">8</span><span class="s0">, </span><span class="s1">getText()</span><span class="s0">, </span><span class="s1">ttl</span><span class="s0">, </span><span class="s1">sb)</span><span class="s0">;</span>
+            <span class="s1">flHouse2 = sb.toString()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">PairCount()</span>
+    <span class="s1">{</span>
+        <span class="s1">StringBuffer sb = </span><span class="s0">new </span><span class="s1">StringBuffer()</span><span class="s0">;</span>
+        <span class="s1">String ttl = </span><span class="s3">&quot;Housie Pair &quot;</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = _fr - </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt; _to</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">k &lt; </span><span class="s2">4</span><span class="s0">; </span><span class="s1">k++) {</span>
+                    <span class="s0">if </span><span class="s1">(</span><span class="s2">0</span><span class="s1">&gt;Tkts[i][j][k] &amp;&amp; </span><span class="s2">0</span><span class="s1">&gt;Tkts[i][j][k+</span><span class="s2">1</span><span class="s1">] ) {</span>
+                        <span class="s0">if</span><span class="s1">(isPair(Tkts[i][j][k]</span><span class="s0">,</span><span class="s1">Tkts[i][j][k+</span><span class="s2">1</span><span class="s1">])){</span>
+                            <span class="s0">if</span><span class="s1">(Tkts[i][j][k] *mark==num || Tkts[i][j][k+</span><span class="s2">1</span><span class="s1">]*mark==num) {</span>
+                                <span class="s1">sb.append(Integer.toString(i + </span><span class="s2">1</span><span class="s1">) + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+                            <span class="s1">}</span>
+                        <span class="s1">}</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(sb.length() &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s1">setText(</span><span class="s3">&quot;Tickets: &quot; </span><span class="s1">+ sb + </span><span class="s3">&quot;Wins Pair&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">createDialog(</span><span class="s2">9</span><span class="s0">, </span><span class="s1">getText()</span><span class="s0">, </span><span class="s1">ttl</span><span class="s0">, </span><span class="s1">sb)</span><span class="s0">;</span>
+            <span class="s1">pair = sb.toString()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">Mango()</span>
+    <span class="s1">{</span>
+        <span class="s1">StringBuffer sb = </span><span class="s0">new </span><span class="s1">StringBuffer()</span><span class="s0">;</span>
+        <span class="s1">String ttl = </span><span class="s3">&quot;Housie Mango &quot;</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = _fr - </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt; _to</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">mngCount =</span><span class="s2">0</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">k &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">k++) {</span>
+                    <span class="s0">if </span><span class="s1">(Tkts[i][j][k] &lt; </span><span class="s2">0 </span><span class="s1">&amp;&amp; Tkts[i][j][k] &gt;-</span><span class="s2">46 </span><span class="s1">) mngCount++ </span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(mngCount == MandACount[i][</span><span class="s2">0</span><span class="s1">] &amp;&amp; hasNumInMango(i)) {</span>
+
+                <span class="s1">sb.append(Integer.toString(i + </span><span class="s2">1</span><span class="s1">) + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(sb.length() &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s1">setText(</span><span class="s3">&quot;Tickets: &quot; </span><span class="s1">+ sb + </span><span class="s3">&quot;Wins Mango&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">createDialog(</span><span class="s2">10</span><span class="s0">, </span><span class="s1">getText()</span><span class="s0">, </span><span class="s1">ttl</span><span class="s0">, </span><span class="s1">sb)</span><span class="s0">;</span>
+            <span class="s1">mango = sb.toString()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">Apple()</span>
+    <span class="s1">{</span>
+        <span class="s1">StringBuffer sb = </span><span class="s0">new </span><span class="s1">StringBuffer()</span><span class="s0">;</span>
+        <span class="s1">String ttl = </span><span class="s3">&quot;Housie Apple &quot;</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = _fr - </span><span class="s2">1</span><span class="s0">; </span><span class="s1">i &lt; _to</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">aplCount =</span><span class="s2">0</span><span class="s0">;</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">k &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">k++) {</span>
+
+                    <span class="s0">if </span><span class="s1">(Tkts[i][j][k] &lt; </span><span class="s2">0 </span><span class="s1">&amp;&amp;Tkts[i][j][k] &lt; -</span><span class="s2">45 </span><span class="s1">) aplCount++ </span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(aplCount == MandACount[i][</span><span class="s2">1</span><span class="s1">] &amp;&amp; hasNumInApple(i)) {</span>
+                <span class="s1">sb.append(Integer.toString(i + </span><span class="s2">1</span><span class="s1">) + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(sb.length() &gt; </span><span class="s2">0</span><span class="s1">) {</span>
+            <span class="s1">setText(</span><span class="s3">&quot;Tickets: &quot; </span><span class="s1">+ sb + </span><span class="s3">&quot;Wins Apple&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">createDialog(</span><span class="s2">11</span><span class="s0">, </span><span class="s1">getText()</span><span class="s0">, </span><span class="s1">ttl</span><span class="s0">, </span><span class="s1">sb)</span><span class="s0">;</span>
+            <span class="s1">apple = sb.toString()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">markNewArray(</span><span class="s0">int </span><span class="s1">digit) {</span>
+        <span class="s0">int </span><span class="s1">a</span><span class="s0">, </span><span class="s1">b</span><span class="s0">, </span><span class="s1">c</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">n = formatFromTo(_fr - </span><span class="s2">1</span><span class="s1">)</span><span class="s0">; </span><span class="s1">n &lt; formatFromTo(_to) + </span><span class="s2">1</span><span class="s0">; </span><span class="s1">n++) {</span>
+            <span class="s1">a = NumAdresses[digit][n][</span><span class="s2">0</span><span class="s1">]</span><span class="s0">;</span>
+            <span class="s1">b = NumAdresses[digit][n][</span><span class="s2">1</span><span class="s1">]</span><span class="s0">;</span>
+            <span class="s1">c = NumAdresses[digit][n][</span><span class="s2">2</span><span class="s1">]</span><span class="s0">;</span>
+            <span class="s1">Tkts[a][b][c] *= mark</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">int </span><span class="s1">formatFromTo(</span><span class="s0">int </span><span class="s1">no) {</span>
+        <span class="s0">int </span><span class="s1">n</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(no &lt; </span><span class="s2">6</span><span class="s1">) {</span>
+            <span class="s1">n = </span><span class="s2">0</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">n = (no - </span><span class="s2">1</span><span class="s1">) / </span><span class="s2">6</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">n</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s5">/**</span>
+     <span class="s5">* ATTENTION: This was auto-generated to implement the App Indexing API.</span>
+     <span class="s5">* See https://g.co/AppIndexing/AndroidStudio for more information.</span>
+     <span class="s5">*/</span>
+    <span class="s0">public </span><span class="s1">Action getIndexApiAction() {</span>
+        <span class="s1">Thing object = </span><span class="s0">new </span><span class="s1">Thing.Builder()</span>
+                <span class="s1">.setName(</span><span class="s3">&quot;PlayGame Page&quot;</span><span class="s1">) </span><span class="s4">// TODO: Define a title for the content shown.</span>
+                <span class="s4">// TODO: Make sure this auto-generated URL is correct.</span>
+                <span class="s1">.setUrl(Uri.parse(</span><span class="s3">&quot;http://[ENTER-YOUR-URL-HERE]&quot;</span><span class="s1">))</span>
+                <span class="s1">.build()</span><span class="s0">;</span>
+        <span class="s0">return new </span><span class="s1">Action.Builder(Action.TYPE_VIEW)</span>
+                <span class="s1">.setObject(object)</span>
+                <span class="s1">.setActionStatus(Action.STATUS_TYPE_COMPLETED)</span>
+                <span class="s1">.build()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">onStart() {</span>
+        <span class="s0">super</span><span class="s1">.onStart()</span><span class="s0">;</span>
+
+        <span class="s4">// ATTENTION: This was auto-generated to implement the App Indexing API.</span>
+        <span class="s4">// See https://g.co/AppIndexing/AndroidStudio for more information.</span>
+        <span class="s1">client.connect()</span><span class="s0">;</span>
+        <span class="s1">AppIndex.AppIndexApi.start(client</span><span class="s0">, </span><span class="s1">getIndexApiAction())</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">onStop() {</span>
+        <span class="s0">super</span><span class="s1">.onStop()</span><span class="s0">;</span>
+
+        <span class="s4">// ATTENTION: This was auto-generated to implement the App Indexing API.</span>
+        <span class="s4">// See https://g.co/AppIndexing/AndroidStudio for more information.</span>
+        <span class="s1">AppIndex.AppIndexApi.end(client</span><span class="s0">, </span><span class="s1">getIndexApiAction())</span><span class="s0">;</span>
+        <span class="s1">client.disconnect()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">onBackPressed() {</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">copyKokaToTkts() {</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">300</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">j++)</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">k &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">k++)</span>
+                    <span class="s1">Tkts[i][j][k] = KokaTkts[i][j][k]</span><span class="s0">;</span>
+
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">copyLotoToTks() {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s2">600</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; </span><span class="s2">3</span><span class="s0">; </span><span class="s1">j++)</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">k &lt; </span><span class="s2">5</span><span class="s0">; </span><span class="s1">k++)</span>
+                    <span class="s1">Tkts[i][j][k] = LottoTickets[i][j][k]</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">click(){</span>
+        <span class="s1">mediaPlayer = MediaPlayer.create(</span><span class="s0">this,</span><span class="s1">R.raw.click_x)</span><span class="s0">;</span>
+        <span class="s1">mediaPlayer.start()</span><span class="s0">;</span>
+        <span class="s1">mediaPlayer.release()</span><span class="s0">;</span>
+        <span class="s1">mediaPlayer= </span><span class="s0">null;</span>
+
+    <span class="s1">}</span>
+    <span class="s0">private void </span><span class="s1">mediaPlayerStop(){</span>
+        <span class="s0">if</span><span class="s1">(mediaPlayer !=</span><span class="s0">null</span><span class="s1">){</span>
+            <span class="s1">mediaPlayer.stop()</span><span class="s0">;</span>
+            <span class="s1">mediaPlayer.release()</span><span class="s0">;</span>
+            <span class="s1">mediaPlayer=</span><span class="s0">null;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">fillMandAarray(){</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">tk =</span><span class="s2">0</span><span class="s0">; </span><span class="s1">tk&lt;</span><span class="s2">600</span><span class="s0">;</span><span class="s1">tk++){</span>
+            <span class="s0">int </span><span class="s1">count = </span><span class="s2">0</span><span class="s0">;</span>
+            <span class="s0">for</span><span class="s1">( </span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">;</span><span class="s1">j&lt;</span><span class="s2">3</span><span class="s0">; </span><span class="s1">j++){</span>
+                <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">k =</span><span class="s2">0</span><span class="s0">;</span><span class="s1">k &lt;</span><span class="s2">5</span><span class="s0">; </span><span class="s1">k++){</span>
+                    <span class="s0">if</span><span class="s1">(Tkts[tk][j][k] &lt;</span><span class="s2">46</span><span class="s1">)count ++</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s1">MandACount[tk][</span><span class="s2">0</span><span class="s1">]=count</span><span class="s0">;</span>
+            <span class="s1">MandACount[tk][</span><span class="s2">1</span><span class="s1">]= </span><span class="s2">15</span><span class="s1">-count </span><span class="s0">;</span>
+
+        <span class="s1">}</span>
+
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">vibrate(){</span>
+        <span class="s1">Vibrator vibrator =(Vibrator)getSystemService(Context.VIBRATOR_SERVICE)</span><span class="s0">;</span>
+        <span class="s0">long </span><span class="s1">patern[]={</span><span class="s2">0</span><span class="s0">,</span><span class="s2">100</span><span class="s0">,</span><span class="s2">100</span><span class="s1">}</span><span class="s0">;</span>
+        <span class="s1">vibrator.vibrate(patern</span><span class="s0">,</span><span class="s1">-</span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+
+
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
